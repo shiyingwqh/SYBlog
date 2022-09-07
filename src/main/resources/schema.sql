@@ -1,0 +1,1 @@
+create table if not exists blog(id varchar(100) primary key,text varchar(10000),`like` int,dislike int,upTime long,modifyTime long)
