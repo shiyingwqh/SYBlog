@@ -3,12 +3,14 @@ package com.wuqihang.syblog.api;
 import com.wuqihang.syblog.mapper.BlogMapper;
 import com.wuqihang.syblog.pojo.Blog;
 import com.wuqihang.syblog.pojo.ResponsePKG;
-import org.apache.tomcat.jni.Time;
+import com.wuqihang.syblog.security.TokenManager;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+import org.springframework.lang.Nullable;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+
 
 /**
  * @author Wuqihang
@@ -18,15 +20,18 @@ import java.util.Date;
 public class BlogController {
     @Autowired
     private BlogMapper blogMapper;
+    @Autowired
+    private TokenManager tokenManager;
 
     @PostMapping("upload-blog")
-    public ResponsePKG uploadBlog(@RequestBody String text, @RequestParam String token) {
+    public ResponsePKG uploadBlog(@RequestBody String text, @RequestParam String title, @Nullable @RequestParam String token, HttpServletRequest request) {
+        if (tokenManager.checkToken(token, request)) return ResponsePKG.error(-1, "Token Invalid!");
         long time = System.currentTimeMillis();
-        Blog blog = new Blog(String.valueOf(time), text, 0, 0, time, time);
+        Blog blog = new Blog(String.valueOf(time), text, title, 0, 0, time, time);
         if (blogMapper.insert(blog)) {
-            return new ResponsePKG(200, "Upload Success!", null);
+            return ResponsePKG.ok("Upload Success!");
         } else {
-            return new ResponsePKG(-1, "Upload Failed!", null);
+            return ResponsePKG.error(-1, "Upload Failed!");
         }
     }
 
@@ -34,33 +39,37 @@ public class BlogController {
     public ResponsePKG getBlog(@RequestParam String id) {
         Blog blog = blogMapper.getBlogById(id);
         if (blog == null) {
-            return new ResponsePKG(-1, null, null);
+            return ResponsePKG.error(-1, "");
         }
-        return new ResponsePKG(200, null, blog);
+        return ResponsePKG.returnData("", blog);
     }
 
-    @RequestMapping("get-blog-list")
+    @PostMapping("get-blog-list")
     public ResponsePKG getBlogList() {
         return new ResponsePKG(blogMapper.getAllId());
     }
 
-    @RequestMapping("delete-blog")
-    public ResponsePKG delete(@RequestParam String id, @RequestParam String token) {
+    @PostMapping("delete-blog")
+    public ResponsePKG delete(@RequestParam String id, @RequestParam String token, HttpServletRequest request) {
+        if (tokenManager.checkToken(token, request)) return ResponsePKG.error(-1, "Token Invalid!");
         blogMapper.delete(id);
-        return new ResponsePKG(200, "Delete Success!", null);
+        return ResponsePKG.ok("Delete Success!");
     }
 
-    @RequestMapping("modify-blog")
-    public ResponsePKG modifyBlog(@RequestParam String id, @RequestParam String token, @RequestBody String text) {
+
+    @PostMapping("modify-blog")
+    public ResponsePKG modifyBlog(@RequestParam String id, @RequestParam String token, @RequestBody String text, @Nullable @RequestParam String title, HttpServletRequest request) {
+        if (tokenManager.checkToken(token, request)) return ResponsePKG.error(-1, "Token Invalid!");
         Blog blog = blogMapper.getBlogById(id);
         if (blog == null) {
-            return new ResponsePKG(-1, "Blog Not Exist!", null);
+            return ResponsePKG.error(-1, "Blog Not Exist!");
         }
         blog.setText(text);
+        blog.setTitle(title == null ? blog.getTitle() : title);
         blog.setModifyTime(System.currentTimeMillis());
         if (blogMapper.update(blog)) {
-            return new ResponsePKG(200, "Blog Update Success!", null);
+            return ResponsePKG.ok("Blog Update Success!");
         }
-        return new ResponsePKG(0, "Blog Update Failed!", null);
+        return ResponsePKG.error(0, "Blog Update Failed!");
     }
 }

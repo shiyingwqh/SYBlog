@@ -15,3 +15,12 @@ spring:
     init:
       schema-locations: classpath:schema.sql
       mode: always
+syblog:
+  user:
+    config:
+      token-keep-time: 36000000
+      key: 114514
+      bytes:
+        - 5
+        - 1
+        - 4

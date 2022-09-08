@@ -13,6 +13,7 @@ import lombok.NoArgsConstructor;
 public class Blog {
     String id;
     String text;
+    String title;
     int like;
     int dislike;
     long upTime;

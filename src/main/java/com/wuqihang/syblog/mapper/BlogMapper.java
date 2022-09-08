@@ -24,10 +24,10 @@ public interface BlogMapper {
     @Delete("DELETE FROM BLOG WHERE id = ${id}")
     void delete(String id);
 
-    @Insert("INSERT INTO BLOG (ID, TEXT, `LIKE`, DISLIKE, UPTIME, MODIFYTIME)" +
-            " VALUES (#{id}, #{text}, #{like}, #{dislike}, #{upTime}, #{modifyTime})")
+    @Insert("INSERT INTO BLOG (ID, TEXT, TITLE, `LIKE`, DISLIKE, UPTIME, MODIFYTIME)" +
+            " VALUES (#{id}, #{text},#{title} ,#{like}, #{dislike}, #{upTime}, #{modifyTime})")
     boolean insert(Blog blog);
 
-    @Update("UPDATE BLOG SET TEXT = #{text}, `LIKE` = #{like}, DISLIKE = #{dislike},MODIFYTIME = #{modifyTime} WHERE id = #{id}")
+    @Update("UPDATE BLOG SET TEXT = #{text},TITLE = #{title} ,`LIKE` = #{like}, DISLIKE = #{dislike},MODIFYTIME = #{modifyTime} WHERE id = #{id}")
     boolean update(Blog blog);
 }
