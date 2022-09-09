@@ -14,7 +14,6 @@ public class Token {
     protected String userId;
     protected long createdTime;
     protected User user;
-
     protected Token() {
     }
 }

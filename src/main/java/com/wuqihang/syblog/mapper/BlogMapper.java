@@ -26,8 +26,8 @@ public interface BlogMapper {
 
     @Insert("INSERT INTO BLOG (ID, TEXT, TITLE, `LIKE`, DISLIKE, UPTIME, MODIFYTIME)" +
             " VALUES (#{id}, #{text},#{title} ,#{like}, #{dislike}, #{upTime}, #{modifyTime})")
-    boolean insert(Blog blog);
+    void insert(Blog blog);
 
     @Update("UPDATE BLOG SET TEXT = #{text},TITLE = #{title} ,`LIKE` = #{like}, DISLIKE = #{dislike},MODIFYTIME = #{modifyTime} WHERE id = #{id}")
-    boolean update(Blog blog);
+    void update(Blog blog);
 }

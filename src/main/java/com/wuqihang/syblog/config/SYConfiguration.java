@@ -5,10 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.boot.context.properties.bind.DefaultValue;
 import org.springframework.context.annotation.Configuration;
-
-import java.util.List;
 
 /**
  * @author Wuqihang
@@ -17,12 +14,14 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Configuration
-@ConfigurationProperties(prefix = "syblog.user.config")
+@ConfigurationProperties(prefix = "syblog.config")
 
-public class UserConfiguration {
+public class SYConfiguration {
     private long tokenKeepTime;
     @Value("")
     private String key;
     @Value("")
     private Byte[] bytes;
+    @Value("10")
+    private int numOnePage;
 }

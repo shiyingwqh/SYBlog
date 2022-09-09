@@ -4,6 +4,8 @@ import com.wuqihang.syblog.pojo.User;
 import org.apache.ibatis.annotations.*;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import java.util.List;
+
 /**
  * @author Wuqihang
  */
@@ -13,13 +15,13 @@ public interface UserMapper {
     User getUserById(String id);
 
     @Select("SELECT * FROM AUSER")
-    User getAllUsers();
+    List<User> getAllUsers();
 
     @Update("UPDATE AUSER SET PASSWORD = #{password} WHERE ID = #{id}")
     User update(User user);
 
     @Delete("DELETE FROM AUSER WHERE ID = #{id}")
-    void delete();
+    void delete(String id);
 
     @Insert("INSERT INTO AUSER (ID, USERNAME, PASSWORD) VALUES ( #{id}, #{username}, #{password})")
     boolean insert(User user);

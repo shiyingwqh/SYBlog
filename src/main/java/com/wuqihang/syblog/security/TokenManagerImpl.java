@@ -1,12 +1,9 @@
 package com.wuqihang.syblog.security;
 
-import com.wuqihang.syblog.config.UserConfiguration;
+import com.wuqihang.syblog.config.SYConfiguration;
 import com.wuqihang.syblog.pojo.User;
-import org.apache.juli.logging.LogFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.slf4j.Marker;
-import org.slf4j.helpers.BasicMarkerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.stereotype.Component;
@@ -21,15 +18,15 @@ import java.util.*;
  * @author Wuqihang
  */
 @Component
-@EnableConfigurationProperties(UserConfiguration.class)
+@EnableConfigurationProperties(SYConfiguration.class)
 public class TokenManagerImpl implements TokenManager {
     private final Map<String, Token> tokenMap;
     private final Map<String, Token> unameTokenMap;
-    @Value("#{userConfiguration.tokenKeepTime}")
+    @Value("#{SYConfiguration.tokenKeepTime}")
     private long tokenKeepTime;
-    @Value("#{userConfiguration.bytes}")
+    @Value("#{SYConfiguration.bytes}")
     private Byte[] bytes;
-    @Value("#{userConfiguration.key}")
+    @Value("#{SYConfiguration.key}")
     private String key;
     private final Logger logger = LoggerFactory.getLogger(TokenManager.class);
 
@@ -90,6 +87,7 @@ public class TokenManagerImpl implements TokenManager {
     public boolean checkToken(String token, HttpServletRequest request) {
         if (token == null || token.equals("")) {
             Cookie[] cookies = request.getCookies();
+            if (cookies == null) return false;
             for (Cookie cookie : cookies) {
                 if (cookie.getName().equals("token")) {
                     token = cookie.getValue();

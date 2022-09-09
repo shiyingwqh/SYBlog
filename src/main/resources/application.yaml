@@ -16,7 +16,6 @@ spring:
       schema-locations: classpath:schema.sql
       mode: always
 syblog:
-  user:
     config:
       token-keep-time: 36000000
       key: 114514
@@ -24,3 +23,4 @@ syblog:
         - 5
         - 1
         - 4
+      num-one-page: 8

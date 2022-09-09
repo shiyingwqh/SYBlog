@@ -4,6 +4,8 @@ import com.wuqihang.syblog.pojo.Account;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 /**
  * @author Wuqihang
  */
@@ -26,4 +28,8 @@ public interface AccountMapper {
     @Insert("INSERT INTO ACCOUNT (ID, NAME, TEL, ADDRESS, EMAIL, REMARKS) " +
             "VALUES (#{user.id}, #{name}, #{tel}, #{address}, #{email}, #{remarks})")
     void insertAccount(Account account);
+
+    @Select("SELECT * FROM ACCOUNT JOIN AUSER A on A.ID = ACCOUNT.ID")
+    @Result(column = "id", property = "user", one = @One(select = "com.wuqihang.syblog.mapper.UserMapper.getUserById"))
+    List<Account> getAllAccount();
 }

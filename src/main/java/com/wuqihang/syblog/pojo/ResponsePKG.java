@@ -11,6 +11,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ResponsePKG {
+    public static ResponsePKG OK = new ResponsePKG(200, "OK", null);
+    public static ResponsePKG ERROR_TOKEN_INVALID = new ResponsePKG(-1, "Token Invalid!", null);
+    public static ResponsePKG ERROR_ILLEGAL_DATA = new ResponsePKG(-1, "Illegal data", null);
     int status;
     String msg;
     Object data;
