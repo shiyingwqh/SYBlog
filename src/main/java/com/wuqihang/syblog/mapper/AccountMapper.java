@@ -2,7 +2,6 @@ package com.wuqihang.syblog.mapper;
 
 import com.wuqihang.syblog.pojo.Account;
 import org.apache.ibatis.annotations.*;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
 

@@ -1,6 +1,7 @@
 package com.wuqihang.syblog.mapper;
 
 import com.wuqihang.syblog.pojo.Blog;
+import com.wuqihang.syblog.pojo.User;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Component;
 
@@ -30,4 +31,10 @@ public interface BlogMapper {
 
     @Update("UPDATE BLOG SET TEXT = #{text},TITLE = #{title} ,`LIKE` = #{like}, DISLIKE = #{dislike},MODIFYTIME = #{modifyTime} WHERE id = #{id}")
     void update(Blog blog);
+
+    @Select("SELECT * FROM BLOG ORDER BY MODIFYTIME DESC LIMIT #{len} OFFSET #{offset}")
+    List<Blog> getBlogsLimit(int offset, int len);
+
+    @Select("SELECT ID FROM BLOG ORDER BY MODIFYTIME DESC LIMIT #{len} OFFSET #{offset}")
+    List<String> getBlogsID(int offset, int len);
 }

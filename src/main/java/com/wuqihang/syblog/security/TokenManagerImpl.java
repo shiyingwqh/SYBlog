@@ -12,7 +12,8 @@ import org.springframework.util.DigestUtils;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import java.nio.charset.StandardCharsets;
-import java.util.*;
+import java.util.Hashtable;
+import java.util.Map;
 
 /**
  * @author Wuqihang

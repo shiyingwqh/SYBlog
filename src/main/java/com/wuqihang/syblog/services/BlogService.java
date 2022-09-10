@@ -27,4 +27,6 @@ public interface BlogService {
     List<Blog> getAllBlog();
 
     List<String> getPageAllId(int page);
+
+    List<Blog> getPageAllBlogs(int page);
 }

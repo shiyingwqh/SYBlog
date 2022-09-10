@@ -1,7 +1,17 @@
+syblog:
+  config:
+    token-keep-time: 36000000
+    key: 114514
+    bytes:
+      - 5
+      - 1
+      - 4
+    num-one-page: 8
+    app-name: SYBlog
 spring:
   datasource:
     driver-class-name: org.h2.Driver
-    url: jdbc:h2:file:~/db;AUTO_SERVER=TRUE;OLD_INFORMATION_SCHEMA=TRU
+    url: jdbc:h2:file:~/${syblog.config.app-name}/db;AUTO_SERVER=TRUE;OLD_INFORMATION_SCHEMA=TRU
     username: root
     password: 123456
   jpa:
@@ -15,12 +25,9 @@ spring:
     init:
       schema-locations: classpath:schema.sql
       mode: always
-syblog:
-    config:
-      token-keep-time: 36000000
-      key: 114514
-      bytes:
-        - 5
-        - 1
-        - 4
-      num-one-page: 8
+  thymeleaf:
+    cache: false
+
+#  web:
+#    resources:
+#      static-locations: file:~/${syblog.config.app-name}/static

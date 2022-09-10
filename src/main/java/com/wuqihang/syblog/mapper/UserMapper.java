@@ -2,7 +2,6 @@ package com.wuqihang.syblog.mapper;
 
 import com.wuqihang.syblog.pojo.User;
 import org.apache.ibatis.annotations.*;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import java.util.List;
 
@@ -31,4 +30,5 @@ public interface UserMapper {
 
     @Select("SELECT * FROM AUSER WHERE USERNAME = #{username}")
     User getUserByUsername(String username);
+
 }

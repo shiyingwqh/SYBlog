@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -88,8 +87,12 @@ public class BlogServiceImpl implements BlogService {
     @Override
     public List<String> getPageAllId(int page) {
         int start = (page - 1) * numOnePage;
-        List<String> allBlog = getAllId();
-        String[] blogs = (String[]) Arrays.copyOfRange(allBlog.toArray(), start, page + numOnePage);
-        return Arrays.asList(blogs);
+        return mapper.getBlogsID(start, numOnePage);
+    }
+
+    @Override
+    public List<Blog> getPageAllBlogs(int page) {
+        int start = (page - 1) * numOnePage;
+        return mapper.getBlogsLimit(start, numOnePage);
     }
 }

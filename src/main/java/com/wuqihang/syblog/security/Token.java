@@ -1,7 +1,9 @@
 package com.wuqihang.syblog.security;
 
 import com.wuqihang.syblog.pojo.User;
-import lombok.*;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.ToString;
 
 /**
  * @author Wuqihang

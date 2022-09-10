@@ -1,10 +1,8 @@
 package com.wuqihang.syblog.pojo;
 
-import com.sun.istack.internal.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.NonNull;
 
 /**
  * @author Wuqihang

@@ -24,4 +24,8 @@ public class SYConfiguration {
     private Byte[] bytes;
     @Value("10")
     private int numOnePage;
+    @Value("SYBlog")
+    private String title;
+    @Value("SYBlog")
+    private String appName;
 }

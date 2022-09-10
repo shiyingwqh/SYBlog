@@ -1,21 +1,10 @@
 package com.wuqihang.syblog.controller.api;
 
-import com.wuqihang.syblog.mapper.AccountMapper;
-import com.wuqihang.syblog.mapper.UserMapper;
 import com.wuqihang.syblog.pojo.Account;
 import com.wuqihang.syblog.pojo.ResponsePKG;
 import com.wuqihang.syblog.pojo.User;
-import com.wuqihang.syblog.security.TokenManager;
 import com.wuqihang.syblog.services.AccountService;
-import com.wuqihang.syblog.services.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpRequest;
-import org.springframework.lang.Nullable;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
-import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author Wuqihang

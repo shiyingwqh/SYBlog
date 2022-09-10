@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="commons/common::head">
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
+    <title th:text="${@SYConfiguration.title}"></title>
+<!--    <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico"/>-->
+    <!-- Font Awesome icons (free version)-->
+    <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+    <!-- Google fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Saira+Extra+Condensed:500,700" rel="stylesheet"
+          type="text/css"/>
+    <link href="https://fonts.googleapis.com/css?family=Muli:400,400i,800,800i" rel="stylesheet" type="text/css"/>
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link th:href="@{/css/styles.css}" rel="stylesheet"/>
+</head>
+<body id="page-top">
+<!-- Navigation-->
+<div th:replace="commons/common::side"></div>
+<!-- Page Content-->
+<div class="container-fluid p-0">
+    <section class="resume-section" id="about">
+        <div class="resume-section-content">
+            <h1 class="mb-0" th:text="${account.getName()}">
+            </h1>
+            <div class="subheading mb-5" th:text="${account.getAddress() + ' · ' + account.getTel()}">
+                <a href="mailto:name@email.com" th:text="${account.getEmail()}"></a>
+            </div>
+            <p class="lead mb-5" th:text="${account.getRemarks()}"></p>
+            <div class="social-icons">
+                <a class="social-icon" href="#!"><i class="fab fa-linkedin-in"></i></a>
+                <a class="social-icon" href="#!"><i class="fab fa-github"></i></a>
+                <a class="social-icon" href="#!"><i class="fab fa-twitter"></i></a>
+                <a class="social-icon" href="#!"><i class="fab fa-facebook-f"></i></a>
+            </div>
+        </div>
+    </section>
+</div>
+<!-- Bootstrap core JS-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Core theme JS-->
+<script th:src="@{/js/scripts.js}"></script>
+</body>
+</html>
