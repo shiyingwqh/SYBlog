@@ -15,4 +15,6 @@ public interface TokenManager {
      void deleteToken(String token);
      boolean checkToken(String token);
      boolean checkToken(String token, HttpServletRequest request);
+
+     int getMaxAge();
 }

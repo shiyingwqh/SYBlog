@@ -13,11 +13,11 @@ import javax.servlet.http.HttpServletResponse;
  * @author Wuqihang
  */
 @Component
-public class SYHandlerInterceptor implements HandlerInterceptor {
+public class APIHandlerInterceptor implements HandlerInterceptor {
     private final TokenManager tokenManager;
     private final ObjectMapper mapper = new ObjectMapper();
 
-    public SYHandlerInterceptor(TokenManager tokenManager) {
+    public APIHandlerInterceptor(TokenManager tokenManager) {
         this.tokenManager = tokenManager;
     }
 

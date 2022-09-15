@@ -17,7 +17,8 @@ import org.springframework.context.annotation.Configuration;
 @ConfigurationProperties(prefix = "syblog.config")
 
 public class SYConfiguration {
-    private long tokenKeepTime;
+    @Value("864000")
+    private int tokenKeepTime;
     @Value("")
     private String key;
     @Value("")

@@ -1,6 +1,6 @@
 syblog:
   config:
-    token-keep-time: 36000000
+    token-keep-time: 864000
     key: 114514
     bytes:
       - 5
@@ -11,7 +11,7 @@ syblog:
 spring:
   datasource:
     driver-class-name: org.h2.Driver
-    url: jdbc:h2:file:~/${syblog.config.app-name}/db;AUTO_SERVER=TRUE;OLD_INFORMATION_SCHEMA=TRU
+    url: jdbc:h2:file:~/${syblog.config.app-name}/db;AUTO_SERVER=TRUE;OLD_INFORMATION_SCHEMA=TRUE
     username: root
     password: 123456
   jpa:
@@ -27,6 +27,8 @@ spring:
       mode: always
   thymeleaf:
     cache: false
+  messages:
+    basename: i18n.sy
 
 #  web:
 #    resources:

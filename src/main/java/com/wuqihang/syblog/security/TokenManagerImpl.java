@@ -24,7 +24,7 @@ public class TokenManagerImpl implements TokenManager {
     private final Map<String, Token> tokenMap;
     private final Map<String, Token> unameTokenMap;
     @Value("#{SYConfiguration.tokenKeepTime}")
-    private long tokenKeepTime;
+    private int tokenKeepTime;
     @Value("#{SYConfiguration.bytes}")
     private Byte[] bytes;
     @Value("#{SYConfiguration.key}")
@@ -75,13 +75,21 @@ public class TokenManagerImpl implements TokenManager {
 
     @Override
     public void deleteToken(String token) {
-        unameTokenMap.remove(tokenMap.get(token).user.getUsername());
+        if (token == null){
+            return;
+        }
+        Token token1 = tokenMap.get(token);
+        if (token1 == null){
+            return;
+        }
+        unameTokenMap.remove(token1.user.getUsername());
         tokenMap.remove(token);
     }
 
     @Override
     public boolean checkToken(String token) {
-        return token != null && !token.equals("") && tokenMap.containsKey(token) && System.currentTimeMillis() - tokenMap.get(token).createdTime < tokenKeepTime;
+        return token != null && !token.equals("") && tokenMap.containsKey(token) && System.currentTimeMillis() - tokenMap.get(token).createdTime < (long) tokenKeepTime * 1000;
+//        return true;
     }
 
     @Override
@@ -92,10 +100,15 @@ public class TokenManagerImpl implements TokenManager {
             for (Cookie cookie : cookies) {
                 if (cookie.getName().equals("token")) {
                     token = cookie.getValue();
+                    break;
                 }
             }
         }
-        return !checkToken(token);
+        return checkToken(token);
     }
 
+    @Override
+    public int getMaxAge() {
+        return tokenKeepTime;
+    }
 }

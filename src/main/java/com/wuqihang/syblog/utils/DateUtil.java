@@ -13,7 +13,7 @@ public class DateUtil {
     private final SimpleDateFormat formatter;
 
     public DateUtil() {
-        this.formatter = new SimpleDateFormat("yyyy MM dd HH:mm");
+        this.formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
     }
 
     public String millisToFormatDate(String millis) {

@@ -6,7 +6,7 @@
     <meta name="description" content=""/>
     <meta name="author" content=""/>
     <title th:text="${@SYConfiguration.title}"></title>
-<!--    <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico"/>-->
+    <!--    <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico"/>-->
     <!-- Font Awesome icons (free version)-->
     <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
     <!-- Google fonts-->
@@ -21,20 +21,19 @@
 <div th:replace="commons/common::side"></div>
 <!-- Page Content-->
 <div class="container-fluid p-0">
-    <section class="resume-section" id="about">
+    <section class="resume-section">
         <div class="resume-section-content">
-            <h1 class="mb-0" th:text="${account.getName()}">
-            </h1>
-            <div class="subheading mb-5" th:text="${account.getAddress() + ' · ' + account.getTel()}">
-                <a href="" th:text="${account.getEmail()}"></a>
+            <h2 class="mb-5">BLOG</h2>
+            <div class="d-flex flex-column flex-md-row justify-content-between mb-5" th:each="blog:${blogList}">
+                <div class="flex-grow-1">
+                    <a th:href="'/blogs/' + ${blog.getId()}"><h3 class="mb-0" th:text="${blog.title}"></h3></a>
+                    <!--                        <div class="subheading mb-3"></div>-->
+                    <p th:text="${blog.text.substring(0,(blog.text.length() > 100 ? 100 : blog.text.length())) + '...'}"></p>
+                </div>
+                <div class="flex-shrink-0"><span class="text-primary"
+                                                 th:text="${@dateUtil.millisToFormatDate(blog.modifyTime)}"></span>
+                </div>
             </div>
-            <p class="lead mb-5" th:text="${account.getRemarks()}"></p>
-<!--            <div class="social-icons">-->
-<!--                <a class="social-icon" href="#!"><i class="fab fa-linkedin-in"></i></a>-->
-<!--                <a class="social-icon" href="#!"><i class="fab fa-github"></i></a>-->
-<!--                <a class="social-icon" href="#!"><i class="fab fa-twitter"></i></a>-->
-<!--                <a class="social-icon" href="#!"><i class="fab fa-facebook-f"></i></a>-->
-<!--            </div>-->
         </div>
     </section>
 </div>

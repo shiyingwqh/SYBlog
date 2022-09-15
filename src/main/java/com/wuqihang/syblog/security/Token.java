@@ -9,13 +9,18 @@ import lombok.ToString;
  * @author Wuqihang
  */
 @Getter
-@ToString
 @EqualsAndHashCode
 public class Token {
     protected String token;
     protected String userId;
     protected long createdTime;
     protected User user;
+
     protected Token() {
+    }
+
+    @Override
+    public String toString() {
+        return token;
     }
 }

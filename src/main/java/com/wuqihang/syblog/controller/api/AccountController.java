@@ -4,6 +4,7 @@ import com.wuqihang.syblog.pojo.Account;
 import com.wuqihang.syblog.pojo.ResponsePKG;
 import com.wuqihang.syblog.pojo.User;
 import com.wuqihang.syblog.services.AccountService;
+import com.wuqihang.syblog.services.UserService;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -12,11 +13,11 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("api")
 public class AccountController {
-    final
-    AccountService accountService;
-
-    public AccountController(AccountService accountService) {
+    final AccountService accountService;
+    final UserService userService;
+    public AccountController(AccountService accountService, UserService userService) {
         this.accountService = accountService;
+        this.userService = userService;
     }
 
     @PostMapping("create-account")
@@ -24,7 +25,9 @@ public class AccountController {
         if (account == null || account.getUser() == null || account.getUser().getUsername() == null || account.getUser().getPassword() == null) {
             return ResponsePKG.ERROR_ILLEGAL_DATA;
         }
-        accountService.create(account);
+        if (userService.exist(account.getUser())) {
+            accountService.create(account);
+        }
         return new ResponsePKG();
     }
 
