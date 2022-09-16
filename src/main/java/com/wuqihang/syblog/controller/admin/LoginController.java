@@ -37,6 +37,16 @@ public class LoginController {
         this.tokenManager = tokenManager;
     }
 
+    @RequestMapping("sign")
+    public String sign() {
+        return "admin/signin";
+    }
+
+    @RequestMapping("signup")
+    public String signUp() {
+        return "admin/signup";
+    }
+
     @RequestMapping("login")
     public String login(@RequestParam String username, @RequestParam String password, Model model, HttpServletRequest request, HttpServletResponse response) {
         if (tokenManager.checkToken("", request)) {
@@ -73,18 +83,35 @@ public class LoginController {
         return "redirect:/admin/signin";
     }
 
-    @PostMapping("signup-account")
-    public String signup(@RequestBody Account account, Model model) {
-        Account create = accountService.create(account);
-        if (accountService.insert(account)) {
-            return "redirect:/admin/signin";
+    @PostMapping("create-account")
+    public String create(@RequestParam String username,
+                         @RequestParam String password,
+                         @RequestParam String name,
+                         @RequestParam String remarks,
+                         @RequestParam String address,
+                         @RequestParam String email,
+                         @RequestParam String tel,
+                         HttpServletResponse response) {
+        if (!accountService.getAllAccount().isEmpty()) {
+            return "redirect:/admin/sign";
         }
-        model.addAttribute("username", account.getUser().getUsername());
-        model.addAttribute("name", account.getName());
-        model.addAttribute("email", account.getEmail());
-        model.addAttribute("remarks", account.getRemarks());
-        model.addAttribute("tel", account.getTel());
-        model.addAttribute("address", account.getAddress());
-        return "/admin/signup";
+        Account account = new Account();
+        User user = new User();
+        user.setUsername(username);
+        user.setPassword(password);
+        account.setUser(user);
+        account.setName(name);
+        account.setAddress(address);
+        account.setRemarks(remarks);
+        account.setEmail(email);
+        account.setTel(tel);
+        account = accountService.create(account);
+        accountService.insert(account);
+        Token token = tokenManager.createToken(account.getUser());
+        Cookie cookie = new Cookie("token", token.getToken());
+        cookie.setMaxAge(tokenManager.getMaxAge());
+        cookie.setPath("/");
+        response.addCookie(cookie);
+        return "redirect:/admin/sign";
     }
 }

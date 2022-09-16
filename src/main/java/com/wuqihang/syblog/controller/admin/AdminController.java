@@ -27,16 +27,6 @@ public class AdminController {
         this.blogService = blogService;
     }
 
-    @RequestMapping("sign")
-    public String sign() {
-        return "admin/signin";
-    }
-
-    @RequestMapping("signup")
-    public String signUp() {
-        return "admin/signup";
-    }
-
     @RequestMapping({"index", ""})
     public String index(Model model) {
         Account account = accountService.getAllAccount().get(0);

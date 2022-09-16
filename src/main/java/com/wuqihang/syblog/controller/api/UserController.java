@@ -44,7 +44,7 @@ public class UserController {
         return ResponsePKG.ok();
     }
 
-    @PostMapping("create-user")
+//    @PostMapping("create-user")
     public ResponsePKG createUser(@RequestBody User user) {
         if (userService.exist(user)) return ResponsePKG.error(-1, "User Exist!");
         userService.create(user);

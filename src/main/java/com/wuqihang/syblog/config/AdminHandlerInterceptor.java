@@ -1,6 +1,5 @@
 package com.wuqihang.syblog.config;
 
-import com.wuqihang.syblog.pojo.ResponsePKG;
 import com.wuqihang.syblog.security.TokenManagerImpl;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -21,7 +20,7 @@ public class AdminHandlerInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        if(!tokenManager.checkToken("", request)){
+        if (!tokenManager.checkToken("", request)) {
             response.sendRedirect("/admin/sign");
             return false;
         }

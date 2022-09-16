@@ -1,7 +1,10 @@
 package com.wuqihang.syblog.config;
 
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.*;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
  * @author Wuqihang
@@ -24,7 +27,9 @@ public class SYMvcConfigurer implements WebMvcConfigurer {
         registry.addInterceptor(adminHandlerInterceptor)
                 .addPathPatterns("/admin/*")
                 .excludePathPatterns("/admin/sign")
-                .excludePathPatterns("/admin/login");
+                .excludePathPatterns("/admin/login")
+                .excludePathPatterns("/admin/signup")
+                .excludePathPatterns("/admin/create-account");
     }
 
     @Override

@@ -1,7 +1,5 @@
 package com.wuqihang.syblog;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wuqihang.syblog.config.SYConfiguration;
 import com.wuqihang.syblog.mapper.AccountMapper;
 import com.wuqihang.syblog.mapper.UserMapper;
@@ -16,8 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.test.context.SpringBootTest;
-
-import java.util.Arrays;
 
 @SpringBootTest
 @EnableConfigurationProperties(SYConfiguration.class)
