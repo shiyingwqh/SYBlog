@@ -1,8 +1,9 @@
-package com.wuqihang.syblog.services;
+package com.wuqihang.syblog.services.impl;
 
 import com.wuqihang.syblog.config.SYConfiguration;
 import com.wuqihang.syblog.mapper.BlogMapper;
 import com.wuqihang.syblog.pojo.Blog;
+import com.wuqihang.syblog.services.BlogService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -60,7 +61,7 @@ public class BlogServiceImpl implements BlogService {
     @Override
     public boolean update(Blog blog) {
         try {
-            mapper.insert(blog);
+            mapper.update(blog);
         } catch (Exception e) {
             logger.error("", e);
             return false;

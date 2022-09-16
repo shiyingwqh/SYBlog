@@ -30,6 +30,7 @@ spring:
   messages:
     basename: i18n.sy
 
-#  web:
-#    resources:
-#      static-locations: file:~/${syblog.config.app-name}/static
+  web:
+    resources:
+      static-locations: file:${user.home}/${syblog.config.app-name}/static/,classpath:static/
+

@@ -1,7 +1,8 @@
-package com.wuqihang.syblog.services;
+package com.wuqihang.syblog.services.impl;
 
 import com.wuqihang.syblog.mapper.UserMapper;
 import com.wuqihang.syblog.pojo.User;
+import com.wuqihang.syblog.services.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;

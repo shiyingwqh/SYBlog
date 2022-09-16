@@ -61,6 +61,7 @@ public class BlogController {
             return ResponsePKG.error(-1, "Blog Not Exist!");
         }
         newBlog.setId(blog.getId());
+        newBlog.setModifyTime(System.currentTimeMillis());
         if (blogService.update(newBlog)) {
             return ResponsePKG.ok("Blog Update Success!");
         }

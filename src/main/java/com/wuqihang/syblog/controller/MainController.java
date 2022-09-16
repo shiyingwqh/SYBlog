@@ -4,11 +4,13 @@ import com.wuqihang.syblog.pojo.Account;
 import com.wuqihang.syblog.pojo.Blog;
 import com.wuqihang.syblog.services.AccountService;
 import com.wuqihang.syblog.services.BlogService;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -29,7 +31,8 @@ public class MainController {
 
     @GetMapping({"/", "index"})
     String getId(HttpServletResponse response, Model model) throws IOException {
-        Account account = accountService.getAllAccount().get(0);
+        List<Account> allAccount = accountService.getAllAccount();
+        Account account = allAccount.get(0);
         if (account == null) {
             response.sendError(HttpServletResponse.SC_NOT_FOUND);
             return null;
@@ -39,14 +42,17 @@ public class MainController {
     }
 
     @GetMapping("/blogs")
-    String blogs(String page, HttpServletResponse response, Model model) throws Exception {
-        int i;
-        try {
-            i = Integer.parseInt(page);
-        } catch (Exception e) {
-            i = 1;
+    String blogs(@Nullable @RequestParam Integer page, HttpServletResponse response, Model model) throws Exception {
+        if (page == null) {
+            page = 1;
         }
-        List<Blog> blogList = blogService.getPageAllBlogs(i);
+        if (page <= 0 || page > blogService.getMaxPage()) {
+            response.sendError(HttpServletResponse.SC_NOT_FOUND);
+            return null;
+        }
+        List<Blog> blogList = blogService.getPageAllBlogs(page);
+        model.addAttribute("page", page);
+        model.addAttribute("maxPage", blogService.getMaxPage());
         model.addAttribute(blogList);
         return "blogs";
     }

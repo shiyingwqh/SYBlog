@@ -67,4 +67,9 @@ public class AdminController {
         model.addAttribute(blog);
         return "admin/modify";
     }
+
+    @RequestMapping("images")
+    public String Image() {
+        return null;
+    }
 }

@@ -1,9 +1,10 @@
-package com.wuqihang.syblog.services;
+package com.wuqihang.syblog.services.impl;
 
 import com.wuqihang.syblog.mapper.AccountMapper;
 import com.wuqihang.syblog.mapper.UserMapper;
 import com.wuqihang.syblog.pojo.Account;
 import com.wuqihang.syblog.pojo.User;
+import com.wuqihang.syblog.services.AccountService;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

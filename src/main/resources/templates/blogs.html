@@ -28,11 +28,23 @@
                 <div class="flex-grow-1">
                     <a th:href="'/blogs/' + ${blog.getId()}"><h3 class="mb-0" th:text="${blog.title}"></h3></a>
                     <!--                        <div class="subheading mb-3"></div>-->
-                    <p th:text="${blog.text.substring(0,(blog.text.length() > 100 ? 100 : blog.text.length())) + '...'}"></p>
+                    <p class="short-content" th:text="${blog.text.substring(0,(blog.text.length() > 100 ? 100 : blog.text.length())) + '...'}"></p>
                 </div>
                 <div class="flex-shrink-0"><span class="text-primary"
                                                  th:text="${@dateUtil.millisToFormatDate(blog.modifyTime)}"></span>
                 </div>
+            </div>
+            <div class="row p-0 m-0">
+                <div class="col-md-4"></div>
+                <a th:class="${page == 1? 'btn btn-primary col-md-1 disabled' : 'btn btn-primary col-md-1'}"
+                   type="button"
+                   th:href="${page != 0 ?'/admin/list?page='+ (page - 1):''}" th:disabled="${page == 1}">Pre
+                </a>
+                <h6 th:text="${page}" class="col-md-2 text-center"></h6>
+                <a th:class="${page == maxPage? 'btn btn-primary col-md-1 disabled' : 'btn btn-primary col-md-1'}"
+                   th:href="${page != maxPage ?'/admin/list?page='+ (page + 1):''}"
+                   th:disabled="${page == maxPage}">Next</a>
+                <div class="col-md-4"></div>
             </div>
         </div>
     </section>
