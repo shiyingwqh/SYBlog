@@ -33,4 +33,6 @@ spring:
   web:
     resources:
       static-locations: file:${user.home}/${syblog.config.app-name}/static/,classpath:static/
-
+  servlet:
+    multipart:
+      max-file-size: 200MB

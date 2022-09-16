@@ -29,16 +29,24 @@ public class FileServiceImpl implements FileService {
     @Override
     public boolean upload(MultipartFile file) {
         InputStream inputStream = null;
-        try {
+        String originalFilename = file.getOriginalFilename();
+        if (originalFilename == null) {
+            return false;
+        }try {
             inputStream = file.getInputStream();
-            inputStream.close();
-            if (file.getOriginalFilename() != null && file.getOriginalFilename().matches(imgRegex)) {
-                return fileUtil.uploadImg(String.valueOf(System.currentTimeMillis()), inputStream);
+            if (originalFilename.matches(imgRegex)) {
+                return fileUtil.uploadImg(originalFilename, inputStream);
             }
-            return fileUtil.uploadFile(String.valueOf(System.currentTimeMillis()), inputStream);
+            return fileUtil.uploadFile(originalFilename, inputStream);
         } catch (IOException e) {
             e.printStackTrace();
             return false;
+        }finally {
+            try {
+                inputStream.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 

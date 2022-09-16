@@ -38,10 +38,25 @@ public class FileUtil {
     }
 
     private boolean upload(InputStream in, File file) {
+        File newFile = new File(file.getParent(), file.getName());
+        String filename = file.getName();
+        int last = filename.lastIndexOf('.');
+        String name = filename.substring(0, last);
+        String ex;
+        if (last == -1) {
+            ex = "";
+        } else {
+            ex = filename.substring(last);
+        }
+        int i = 0;
+        while (newFile.exists()) {
+            i++;
+            newFile = new File(file.getParent(), name + '(' + i + ')' + ex);
+        }
         try {
-            boolean newFile = file.createNewFile();
-            if (newFile) {
-                FileOutputStream fos = new FileOutputStream(file);
+            boolean created = newFile.createNewFile();
+            if (created) {
+                FileOutputStream fos = new FileOutputStream(newFile);
                 byte[] bytes = new byte[4096];
                 int len;
                 while ((len = in.read(bytes)) > 0) {
