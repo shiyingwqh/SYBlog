@@ -35,6 +35,7 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public boolean insert(Account account) {
+        if (account == null) return false;
         if (account.getUser() == null) {
             return false;
         }

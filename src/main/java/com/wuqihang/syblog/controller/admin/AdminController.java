@@ -7,7 +7,10 @@ import com.wuqihang.syblog.services.BlogService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -47,5 +50,17 @@ public class AdminController {
     public String edit(Model model) {
         model.addAttribute(accountService.getAllAccount().get(0));
         return "admin/edit";
+    }
+
+    @RequestMapping("modify")
+    public String modify(@RequestParam String id, Model model, HttpServletResponse response) throws IOException {
+        Blog blog = blogService.getBlog(id);
+        if (blog == null) {
+            response.sendError(HttpServletResponse.SC_NOT_FOUND);
+            return null;
+        }
+        model.addAttribute(accountService.getAllAccount().get(0));
+        model.addAttribute(blog);
+        return "admin/modify";
     }
 }

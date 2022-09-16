@@ -1,5 +1,6 @@
 package com.wuqihang.syblog.controller.admin;
 
+import com.wuqihang.syblog.pojo.Account;
 import com.wuqihang.syblog.pojo.User;
 import com.wuqihang.syblog.security.Token;
 import com.wuqihang.syblog.security.TokenManager;
@@ -8,6 +9,8 @@ import com.wuqihang.syblog.services.UserService;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -68,5 +71,20 @@ public class LoginController {
         }
         tokenManager.deleteToken(token);
         return "redirect:/admin/signin";
+    }
+
+    @PostMapping("signup-account")
+    public String signup(@RequestBody Account account, Model model) {
+        Account create = accountService.create(account);
+        if (accountService.insert(account)) {
+            return "redirect:/admin/signin";
+        }
+        model.addAttribute("username", account.getUser().getUsername());
+        model.addAttribute("name", account.getName());
+        model.addAttribute("email", account.getEmail());
+        model.addAttribute("remarks", account.getRemarks());
+        model.addAttribute("tel", account.getTel());
+        model.addAttribute("address", account.getAddress());
+        return "/admin/signup";
     }
 }

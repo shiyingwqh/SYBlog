@@ -31,6 +31,7 @@
                             <th scope="col">Title</th>
                             <th scope="col">Upload Date</th>
                             <th scope="col">Last Modify Date</th>
+                            <th scope="col">Action</th>
                         </tr>
                         </thead>
                         <tbody th:each="blog:${blogList}">
@@ -38,7 +39,9 @@
                             <td th:text="${blog.getTitle()}"></td>
                             <td th:text="${@dateUtil.millisToFormatDate(blog.getUpTime())}"></td>
                             <td th:text="${@dateUtil.millisToFormatDate(blog.getModifyTime())}"></td>
-                            <td><a class="btn btn-sm btn-primary" href="">Detail</a></td>
+                            <td><a th:href="'/admin/modify?id='+ ${blog.getId()}"
+                                   class="btn btn-sm btn-primary">Detail</a>
+                            </td>
                         </tr>
 
                         </tbody>
