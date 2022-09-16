@@ -79,4 +79,11 @@ public class AdminController {
         model.addAttribute("filePaths", filePaths);
         return "admin/file";
     }
+
+    @RequestMapping("setting")
+    public String setting(Model model) {
+        Account account = accountService.getAllAccount().get(0);
+        model.addAttribute(account);
+        return "admin/setting";
+    }
 }

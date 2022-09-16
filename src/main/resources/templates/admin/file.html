@@ -17,36 +17,22 @@
     <div class="content">
 
         <div th:replace="commons/adminCommon::top"></div>
-
-        <!--        <div class="col">-->
-        <!--            <div class="bg-light rounded h-100 p-4">-->
-        <!--                <h6 class="mb-4">Type</h6>-->
-        <!--                <div class="form-floating mb-3">-->
-        <!--                    <input id="title" class="form-control">-->
-        <!--                    <label for="title">Title</label>-->
-        <!--                </div>-->
-        <!--                <div class="form-floating">-->
-        <!--                    <textarea class="form-control" placeholder="Text" id="text"-->
-        <!--                              style="height: 300px;"></textarea>-->
-        <!--                    <label for="text">Text</label>-->
-        <!--                </div>-->
-        <!--                <button class="btn btn-primary w-100 m-2" type="button" onclick="submit()">Submit</button>-->
-        <!--            </div>-->
-        <!--        </div>-->
         <div id="uploadFile">
             <form id="file-form" enctype="multipart/form-data" method="post">
                 <input class="form-control" type="file" name="file">
                 <button class="btn btn-primary form-control text-dark" type="button" onclick="up()">Upload</button>
             </form>
         </div>
-        <div id="files" class="row">
-            <div class="col-md-2 bg-light m-1 rounded" th:each="path:${filePaths}">
-                <label th:text="${path}" class="col-12"></label>
-                <img th:src="${path.matches('([^\s]+(\.(?i)(jpg|png|gif|bmp))$)')}?'/static' + ${path}:''"
-                     class="col-12 m-1">
-                <button class="btn btn-primary form-contro text-black" th:data="${path}"
-                        onclick="del(this.getAttribute('data'))">Delete
-                </button>
+        <div class="container p-0 m-0">
+            <div id="files" class="col row row-cols-md-4 row-cols-sm-2">
+                <div class="bg-light rounded row-cols-1 col-auto" th:each="path:${filePaths}">
+                    <label th:text="${path}" class="col"></label>
+                    <a th:href="'/static' + ${path}"><img th:src="${path.matches('([^\s]+(\.(?i)(jpg|png|gif|bmp))$)')}?'/static' + ${path}:''"
+                            class="col w-auto m-2" height="100px"></a>
+                    <button class="btn btn-primary form-contro text-black w-50 col m-2" th:data="${path}"
+                            onclick="del(this.getAttribute('data'))">Delete
+                    </button>
+                </div>
             </div>
         </div>
     </div>

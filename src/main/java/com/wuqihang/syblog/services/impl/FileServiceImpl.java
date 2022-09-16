@@ -2,12 +2,14 @@ package com.wuqihang.syblog.services.impl;
 
 import com.wuqihang.syblog.services.FileService;
 import com.wuqihang.syblog.utils.FileUtil;
+import org.apache.tomcat.util.buf.Utf8Encoder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.ArrayList;
@@ -32,7 +34,8 @@ public class FileServiceImpl implements FileService {
         String originalFilename = file.getOriginalFilename();
         if (originalFilename == null) {
             return false;
-        }try {
+        }
+        try {
             inputStream = file.getInputStream();
             if (originalFilename.matches(imgRegex)) {
                 return fileUtil.uploadImg(originalFilename, inputStream);
@@ -41,7 +44,7 @@ public class FileServiceImpl implements FileService {
         } catch (IOException e) {
             e.printStackTrace();
             return false;
-        }finally {
+        } finally {
             try {
                 inputStream.close();
             } catch (IOException e) {
@@ -91,7 +94,8 @@ public class FileServiceImpl implements FileService {
                 getAllName(file1, path, names);
             }
         } else {
-            names.add(path + "/" + URLEncoder.encode(file.getName()));
+            names.add(path + "/" + URLEncoder.encode(file.getName()).replace("+","%20"));
+
         }
     }
 

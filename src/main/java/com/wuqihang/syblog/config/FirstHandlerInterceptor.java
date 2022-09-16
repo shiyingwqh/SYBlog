@@ -21,7 +21,7 @@ public class FirstHandlerInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        if (!first ||  accountService.getAllAccount().get(0) != null) {
+        if (!first || !accountService.getAllAccount().isEmpty()) {
             first = false;
             return true;
         }

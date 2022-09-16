@@ -17,7 +17,7 @@ public interface UserMapper {
     List<User> getAllUsers();
 
     @Update("UPDATE AUSER SET PASSWORD = #{password} WHERE ID = #{id}")
-    User update(User user);
+    void update(User user);
 
     @Delete("DELETE FROM AUSER WHERE ID = #{id}")
     void delete(String id);
