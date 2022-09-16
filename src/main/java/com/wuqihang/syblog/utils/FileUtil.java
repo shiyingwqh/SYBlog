@@ -1,6 +1,8 @@
 package com.wuqihang.syblog.utils;
 
 import com.wuqihang.syblog.config.SYConfiguration;
+import lombok.Getter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.stereotype.Component;
@@ -9,23 +11,33 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URLDecoder;
 
 /**
  * @author Wuqihang
  */
-@EnableConfigurationProperties(SYConfiguration.class)
+
 @Component
+@EnableConfigurationProperties(SYConfiguration.class)
+@Getter
 public class FileUtil {
-    @Value("#{SYConfiguration.appName}")
-    private String appName;
+
+    private final String appName;
     private final File root;
 
-    public FileUtil() {
-        this.root = new File("~/" + appName + "/static");
+    public FileUtil(@Value("#{SYConfiguration.appName}") String appName) {
+        this.appName = appName;
+        this.root = new File(System.getProperty("user.home") + File.separator + appName + File.separator + "static" + File.separator + "static");
+        root.mkdirs();
+        new File(root, "img").mkdirs();
     }
 
-    public boolean uploadImg(String fileName, InputStream in) {
-        File file = new File(new File(root, "img"), fileName);
+    public boolean uploadFile(String fileName, InputStream in) {
+        File file = new File(root, fileName);
+        return upload(in, file);
+    }
+
+    private boolean upload(InputStream in, File file) {
         try {
             boolean newFile = file.createNewFile();
             if (newFile) {
@@ -45,4 +57,12 @@ public class FileUtil {
         }
     }
 
+    public boolean uploadImg(String fileName, InputStream in) {
+        File file = new File(new File(root, "img"), fileName);
+        return upload(in, file);
+    }
+
+    public void delete(File file) {
+        file.delete();
+    }
 }
