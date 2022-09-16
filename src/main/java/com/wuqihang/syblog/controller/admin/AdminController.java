@@ -4,6 +4,7 @@ import com.wuqihang.syblog.pojo.Account;
 import com.wuqihang.syblog.pojo.Blog;
 import com.wuqihang.syblog.services.AccountService;
 import com.wuqihang.syblog.services.BlogService;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,6 +35,19 @@ public class AdminController {
         model.addAttribute(blogs);
         model.addAttribute(account);
         return "admin/index";
+    }
+
+    @RequestMapping("list")
+    public String list(@RequestParam @Nullable Integer page, Model model) {
+        if (page == null){
+            page = 1;
+        }
+        List<Blog> pageAllBlogs = blogService.getPageAllBlogs(page);
+        model.addAttribute(accountService.getAllAccount().get(0));
+        model.addAttribute(pageAllBlogs);
+        model.addAttribute("page", page);
+        model.addAttribute("maxPage", blogService.getMaxPage());
+        return "admin/list";
     }
 
     @RequestMapping("edit")

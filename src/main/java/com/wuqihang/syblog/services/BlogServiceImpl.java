@@ -94,4 +94,10 @@ public class BlogServiceImpl implements BlogService {
         int start = (page - 1) * numOnePage;
         return mapper.getBlogsLimit(start, numOnePage);
     }
+
+    @Override
+    public int getMaxPage() {
+        int size = getAllBlog().size();
+        return size / numOnePage + 1;
+    }
 }
