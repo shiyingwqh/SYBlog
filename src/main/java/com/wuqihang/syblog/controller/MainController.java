@@ -29,7 +29,7 @@ public class MainController {
         this.blogService = blogService;
     }
 
-    @GetMapping({"/", "index"})
+    @GetMapping({"/", "/index"})
     String getId(HttpServletResponse response, Model model) throws IOException {
         List<Account> allAccount = accountService.getAllAccount();
         Account account = allAccount.get(0);

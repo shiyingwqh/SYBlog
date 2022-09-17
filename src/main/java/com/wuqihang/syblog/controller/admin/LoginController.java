@@ -6,6 +6,8 @@ import com.wuqihang.syblog.security.Token;
 import com.wuqihang.syblog.security.TokenManager;
 import com.wuqihang.syblog.services.AccountService;
 import com.wuqihang.syblog.services.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,6 +32,8 @@ public class LoginController {
     private final UserService userService;
     private final TokenManager tokenManager;
 
+    private final Logger logger = LoggerFactory.getLogger(LoginController.class);
+
     public LoginController(AccountService accountService, MessageSource messageSource, UserService userService, TokenManager tokenManager) {
         this.accountService = accountService;
         this.messageSource = messageSource;
@@ -52,6 +56,7 @@ public class LoginController {
         if (tokenManager.checkToken("", request)) {
             return "redirect:/admin/index";
         }
+
         if (userService.checkPassword(username, password)) {
             User user = userService.getUser(username);
             Token token = tokenManager.createToken(user);
@@ -112,6 +117,7 @@ public class LoginController {
         cookie.setMaxAge(tokenManager.getMaxAge());
         cookie.setPath("/");
         response.addCookie(cookie);
+        logger.info("User Login");
         return "redirect:/admin/sign";
     }
 }

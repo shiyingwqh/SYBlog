@@ -35,4 +35,5 @@ spring:
       static-locations: file:${user.home}/${syblog.config.app-name}/static/,classpath:static/
   servlet:
     multipart:
+      max-request-size: 200MB
       max-file-size: 200MB
