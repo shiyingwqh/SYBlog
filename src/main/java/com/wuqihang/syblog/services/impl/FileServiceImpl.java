@@ -2,7 +2,6 @@ package com.wuqihang.syblog.services.impl;
 
 import com.wuqihang.syblog.services.FileService;
 import com.wuqihang.syblog.utils.FileUtil;
-import org.apache.tomcat.util.buf.Utf8Encoder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 

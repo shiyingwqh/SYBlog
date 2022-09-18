@@ -44,25 +44,25 @@ class SyBlogApplicationTests {
 
     @Test
     void contextLoads() {
-        Account account = new Account();
-        account.setUser(new User(String.valueOf(System.currentTimeMillis()), "admin", "password"));
-        account.setName("吴琪杭");
-        account.setAddress("浙江省绍兴市群贤中路东浦街道2799号");
-        account.setEmail("wqhshiying@163.com");
-        account.setTel("18815191658");
-        account.setRemarks("一名平平无奇的大学生");
-        accountService.insert(account);
-        Blog blog = new Blog();
-        long l = System.currentTimeMillis();
-        String id = String.valueOf(l);
-        blog.setId(id);
-        blog.setLike(0);
-        blog.setDislike(0);
-        blog.setTitle("第一");
-        blog.setText("你好啊");
-        blog.setUpTime(l);
-        blog.setModifyTime(l);
-        blogService.insert(blog);
+//        Account account = new Account();
+//        account.setUser(new User(String.valueOf(System.currentTimeMillis()), "admin", "password"));
+//        account.setName("吴琪杭");
+//        account.setAddress("浙江省绍兴市群贤中路东浦街道2799号");
+//        account.setEmail("wqhshiying@163.com");
+//        account.setTel("18815191658");
+//        account.setRemarks("一名平平无奇的大学生");
+//        accountService.insert(account);
+//        Blog blog = new Blog();
+//        long l = System.currentTimeMillis();
+//        String id = String.valueOf(l);
+//        blog.setId(id);
+//        blog.setLike(0);
+//        blog.setDislike(0);
+//        blog.setTitle("第一");
+//        blog.setText("你好啊");
+//        blog.setUpTime(l);
+//        blog.setModifyTime(l);
+//        blogService.insert(blog);
 //        List<String> allFilePath = fileService.getAllFilePath();
 //        System.out.println(allFilePath);
 //        File root = fileUtil.getRoot();
