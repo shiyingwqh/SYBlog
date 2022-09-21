@@ -28,7 +28,7 @@
                 <div class="bg-light rounded row-cols-1" th:each="path:${filePaths}">
                     <div class="form-row mb-2">
                         <label class="col-12 form-control-plaintext">Path</label>
-                        <input th:value="${path}" class="form-control" readonly>
+                        <input th:value="'/static' + ${path}" class="form-control" readonly>
                     </div>
                     <div class="form-control">
                         <a th:href="'/static' + ${path}">
