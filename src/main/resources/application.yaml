@@ -8,6 +8,8 @@ syblog:
       - 4
     num-one-page: 8
     app-name: SYBlog
+  theme:
+    dir: ${user.home}/${syblog.config.app-name}/theme/
 spring:
   datasource:
     driver-class-name: org.h2.Driver
@@ -33,6 +35,5 @@ spring:
       static-locations: file:${user.home}/${syblog.config.app-name}/static/,classpath:static/
   servlet:
     multipart:
-      max-request-size: 200MB
-      max-file-size: 200MB
-#    cache: false
+      max-request-size: 100MB
+      max-file-size: 10MB

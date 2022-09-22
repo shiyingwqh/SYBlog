@@ -22,17 +22,6 @@ public class UserController {
         this.userService = userService;
     }
 
-    @PostMapping("get-token")
-    public ResponsePKG getToken(@RequestParam String username, @RequestParam String password) {
-        User user = userService.getUser(username);
-        if (user == null) {
-            return ResponsePKG.error(-1, "User Not Found!");
-        }
-        if (!userService.checkPassword(username, password)) return ResponsePKG.error(-1, "Password is Wrong");
-        Token token = tokenManager.createToken(user);
-        return ResponsePKG.returnData("Success!", token);
-    }
-
     @PostMapping("update-user")
     public ResponsePKG updateUser(@RequestParam String username, @RequestParam String oldPassword, @RequestParam String password) {
         User user = userService.getUser(username);
@@ -44,7 +33,7 @@ public class UserController {
         return ResponsePKG.ok();
     }
 
-//    @PostMapping("create-user")
+    @PostMapping("create-user")
     public ResponsePKG createUser(@RequestBody User user) {
         if (userService.exist(user)) return ResponsePKG.error(-1, "User Exist!");
         userService.create(user);

@@ -20,7 +20,7 @@ public class AccountController {
         this.userService = userService;
     }
 
-//    @PostMapping("create-account")
+    @PostMapping("create-account")
     public ResponsePKG createAccount(@RequestBody Account account) {
         if (account == null || account.getUser() == null || account.getUser().getUsername() == null || account.getUser().getPassword() == null) {
             return ResponsePKG.ERROR_ILLEGAL_DATA;
@@ -31,7 +31,7 @@ public class AccountController {
         return new ResponsePKG();
     }
 
-//    @PostMapping("bind-account-user")
+    @PostMapping("bind-account-user")
     public ResponsePKG bindAccountUser(@RequestBody Account account) {
         if (account == null || account.getUser() == null || account.getUser().getUsername() == null || account.getUser().getPassword() == null) {
             return ResponsePKG.ERROR_ILLEGAL_DATA;

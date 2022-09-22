@@ -19,6 +19,6 @@ public class APIMvcConfigurer implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(syHandlerInterceptor)
                 .addPathPatterns("/api/*")
-                .excludePathPatterns("/api/get-token");
+                .excludePathPatterns("/api/token/*");
     }
 }

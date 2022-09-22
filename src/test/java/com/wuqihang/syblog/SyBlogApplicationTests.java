@@ -73,6 +73,7 @@ class SyBlogApplicationTests {
 //        System.out.println(file);
 //        List<Account> allAccount = accountMapper.getAllAccount();
 //        System.out.println(allAccount);
+        System.out.println(new File("C:\\Users\\shiying\\SYBlog\\theme\\commons\\foot.html").exists());
     }
 
 }
