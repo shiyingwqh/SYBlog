@@ -42,4 +42,10 @@ public class TokenController {
         }
         return ResponsePKG.error(-1, "Token Invalid!");
     }
+
+    @PostMapping("delete-token")
+    public ResponsePKG deleteToken(@RequestParam String token) {
+        tokenManager.deleteToken(token);
+        return ResponsePKG.ok();
+    }
 }

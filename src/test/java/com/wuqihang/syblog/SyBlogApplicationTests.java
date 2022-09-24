@@ -4,10 +4,7 @@ import com.wuqihang.syblog.config.SYConfiguration;
 import com.wuqihang.syblog.mapper.AccountMapper;
 import com.wuqihang.syblog.mapper.CommentMapper;
 import com.wuqihang.syblog.mapper.UserMapper;
-import com.wuqihang.syblog.pojo.Account;
-import com.wuqihang.syblog.pojo.Blog;
 import com.wuqihang.syblog.pojo.Comment;
-import com.wuqihang.syblog.pojo.User;
 import com.wuqihang.syblog.security.TokenManager;
 import com.wuqihang.syblog.services.AccountService;
 import com.wuqihang.syblog.services.BlogService;
@@ -18,9 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.test.context.SpringBootTest;
-
-import java.io.File;
-import java.util.List;
 
 @SpringBootTest
 @EnableConfigurationProperties(SYConfiguration.class)

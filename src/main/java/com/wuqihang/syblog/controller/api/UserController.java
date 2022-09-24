@@ -2,7 +2,6 @@ package com.wuqihang.syblog.controller.api;
 
 import com.wuqihang.syblog.pojo.ResponsePKG;
 import com.wuqihang.syblog.pojo.User;
-import com.wuqihang.syblog.security.Token;
 import com.wuqihang.syblog.security.TokenManager;
 import com.wuqihang.syblog.services.UserService;
 import org.springframework.web.bind.annotation.*;
@@ -13,12 +12,9 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("api")
 public class UserController {
-
-    private final TokenManager tokenManager;
     private final UserService userService;
 
-    public UserController(TokenManager tokenManager, UserService userService) {
-        this.tokenManager = tokenManager;
+    public UserController(UserService userService) {
         this.userService = userService;
     }
 
@@ -28,7 +24,8 @@ public class UserController {
         if (user == null) {
             return ResponsePKG.error(-1, "User Not Found!");
         }
-        if (!userService.checkPassword(username, password)) return ResponsePKG.error(-1, "Password is Wrong");
+        if (!userService.checkPassword(username, oldPassword)) return ResponsePKG.error(-1, "Password is Wrong");
+        user.setPassword(password);
         userService.update(user);
         return ResponsePKG.ok();
     }
