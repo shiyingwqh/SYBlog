@@ -5,7 +5,10 @@ import com.wuqihang.syblog.pojo.ResponsePKG;
 import com.wuqihang.syblog.pojo.User;
 import com.wuqihang.syblog.services.AccountService;
 import com.wuqihang.syblog.services.UserService;
+import org.springframework.lang.Nullable;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * @author Wuqihang
@@ -22,6 +25,10 @@ public class AccountController {
 
     @PostMapping("create-account")
     public ResponsePKG createAccount(@RequestBody Account account) {
+        if (!accountService.getAllAccount().isEmpty()) {
+            return ResponsePKG.error(-1, "Account is Already Exist!");
+        }
+
         if (account == null || account.getUser() == null || account.getUser().getUsername() == null || account.getUser().getPassword() == null) {
             return ResponsePKG.ERROR_ILLEGAL_DATA;
         }
@@ -42,7 +49,7 @@ public class AccountController {
         return ResponsePKG.ok();
     }
 
-//    @PostMapping("delete-account")
+    @PostMapping("delete-account")
     public ResponsePKG deleteAccount(@RequestParam String id) {
         accountService.delete(id);
         return ResponsePKG.OK;
@@ -51,5 +58,14 @@ public class AccountController {
     @PostMapping("update-account")
     public ResponsePKG account(@RequestBody Account account) {
         return accountService.update(account) ? ResponsePKG.OK : ResponsePKG.error(-1, "Update Failed!");
+    }
+
+    @PostMapping("get-account")
+    public ResponsePKG getAccount() {
+        List<Account> allAccount = accountService.getAllAccount();
+        if (allAccount.isEmpty()) {
+            return ResponsePKG.error(-1, "No Account Founded!");
+        }
+        return ResponsePKG.returnData(allAccount.get(0));
     }
 }

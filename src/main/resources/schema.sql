@@ -1,3 +1,4 @@
 create table if not exists blog(id varchar(20) primary key, title varchar(30), text clob,`like` int,dislike int,upTime long,modifyTime long);
 create table if not exists auser(id varchar(20) primary key, username varchar(20) unique, password varchar(20));
 create table if not exists account(id varchar(20) primary key , name varchar(10), tel varchar(15), address varchar(30), email varchar(20),remarks clob,FOREIGN KEY (id) REFERENCES auser);
+create table if not exists comments(id int primary key auto_increment, blogId int, name varchar(20), text clob,time long, FOREIGN KEY (blogId) REFERENCES blog(id));

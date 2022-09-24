@@ -2,9 +2,11 @@ package com.wuqihang.syblog;
 
 import com.wuqihang.syblog.config.SYConfiguration;
 import com.wuqihang.syblog.mapper.AccountMapper;
+import com.wuqihang.syblog.mapper.CommentMapper;
 import com.wuqihang.syblog.mapper.UserMapper;
 import com.wuqihang.syblog.pojo.Account;
 import com.wuqihang.syblog.pojo.Blog;
+import com.wuqihang.syblog.pojo.Comment;
 import com.wuqihang.syblog.pojo.User;
 import com.wuqihang.syblog.security.TokenManager;
 import com.wuqihang.syblog.services.AccountService;
@@ -41,6 +43,8 @@ class SyBlogApplicationTests {
     FileService fileService;
     @Autowired
     FileUtil fileUtil;
+    @Autowired
+    CommentMapper commentMapper;
 
     @Test
     void contextLoads() {
@@ -73,7 +77,11 @@ class SyBlogApplicationTests {
 //        System.out.println(file);
 //        List<Account> allAccount = accountMapper.getAllAccount();
 //        System.out.println(allAccount);
-        System.out.println(new File("C:\\Users\\shiying\\SYBlog\\theme\\commons\\foot.html").exists());
+//        System.out.println(new File("C:\\Users\\shiying\\SYBlog\\theme\\commons\\foot.html").exists());
+        Comment comment = new Comment();
+        comment.setBlogId("123");
+        comment.setText("ni hao");
+        commentMapper.insert(comment);
     }
 
 }
