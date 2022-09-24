@@ -6,9 +6,13 @@ import com.wuqihang.syblog.pojo.Comment;
 import java.util.List;
 
 public interface CommentService {
-    int addComment(Blog blog, Comment comment);
+    int addComment(String blogId, Comment comment);
     List<Comment> getComments(Blog blog);
     List<Comment> getComments(String blogId);
-    boolean deleteComment(String id);
-    boolean updateComment(String id);
+    void deleteComment(int id);
+    boolean updateComment(Comment comment);
+    
+    List<Integer> getAllId();
+
+    List<Comment> getAllComments();
 }
