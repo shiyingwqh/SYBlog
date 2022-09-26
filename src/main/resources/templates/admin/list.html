@@ -48,13 +48,13 @@
                         </tr>
                         </tbody>
                     </table>
-                    <div class="row p-0 m-0">
+                    <div class="row p-0 m-0 mt-2">
                         <div class="col-md-4"></div>
                         <a th:class="${page == 1? 'btn btn-primary col-md-1 disabled' : 'btn btn-primary col-md-1'}"
                            type="button"
                            th:href="${page != 0 ?'/admin/list?page='+ (page - 1):''}" th:disabled="${page == 1}">Pre
                         </a>
-                        <h6 th:text="${page}" class="col-md-2 text-center"></h6>
+                        <h6 th:text="${page}" class="col-md-2 text-center pt-2"></h6>
                         <a th:class="${page == maxPage? 'btn btn-primary col-md-1 disabled' : 'btn btn-primary col-md-1'}"
                            th:href="${page != maxPage ?'/admin/list?page='+ (page + 1):''}"
                            th:disabled="${page == maxPage}">Next</a>
