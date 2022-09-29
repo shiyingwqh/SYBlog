@@ -8,8 +8,7 @@ syblog:
       - 4
     num-one-page: 8
     app-name: SYBlog
-  theme:
-    dir: ${user.home}/${syblog.config.app-name}/theme/
+
 spring:
   datasource:
     driver-class-name: org.h2.Driver
@@ -37,3 +36,5 @@ spring:
     multipart:
       max-request-size: 100MB
       max-file-size: 10MB
+server:
+  port:

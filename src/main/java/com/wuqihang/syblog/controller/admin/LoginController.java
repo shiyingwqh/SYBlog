@@ -79,8 +79,8 @@ public class LoginController {
         for (Cookie cookie : cookies) {
             if (cookie.getName().equals("token")) {
                 token = cookie.getValue();
-                cookie.setMaxAge(-1);
-                response.addCookie(cookie);
+//                cookie.setMaxAge(-1);
+//                response.addCookie(cookie);
                 break;
             }
         }

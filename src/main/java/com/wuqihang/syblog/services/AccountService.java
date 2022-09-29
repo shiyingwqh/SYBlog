@@ -23,4 +23,6 @@ public interface AccountService {
     List<Account> getAllAccount();
 
     User getUser(Account account);
+
+    Account copyNullUserAccount(Account account);
 }

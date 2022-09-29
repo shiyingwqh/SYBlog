@@ -105,4 +105,15 @@ public class AccountServiceImpl implements AccountService {
         account.setUser(user);
         return user;
     }
+
+    @Override
+    public Account copyNullUserAccount(Account account) {
+        Account newAccount = new Account();
+        newAccount.setTel(account.getTel());
+        newAccount.setName(account.getName());
+        newAccount.setEmail(account.getEmail());
+        newAccount.setRemarks(account.getRemarks());
+        newAccount.setAddress(account.getAddress());
+        return newAccount;
+    }
 }

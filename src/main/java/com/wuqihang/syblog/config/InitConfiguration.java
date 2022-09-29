@@ -17,7 +17,7 @@ import java.io.File;
 public class InitConfiguration implements InitializingBean {
     @Value("#{SYConfiguration.appName}")
     private String appName;
-    private Logger logger = LoggerFactory.getLogger(InitConfiguration.class);
+    private final Logger logger = LoggerFactory.getLogger(InitConfiguration.class);
 
     @Override
     public void afterPropertiesSet() throws Exception {

@@ -16,6 +16,9 @@ public class CommentController {
 
     @PostMapping("add-comment")
     public ResponsePKG addComment(@RequestBody Comment comment) {
+        if("".equals(comment.getName()) || comment.getName() == null){
+            comment.setName("None");
+        }
         int id = commentService.addComment(comment.getBlogId(),comment);
         return ResponsePKG.returnData(id);
     }

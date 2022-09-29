@@ -55,7 +55,7 @@ public class TokenManagerImpl implements TokenManager {
         token.createdTime = System.currentTimeMillis();
         String username = user.getUsername();
         String password = user.getPassword();
-        String u = String.valueOf(token.createdTime) + username + password + key;
+        String u = token.createdTime + username + password + key;
         byte[] bytes = u.getBytes(StandardCharsets.UTF_8);
         for (int i = 0; i < this.bytes.length; i++) {
             bytes[i] = this.bytes[i];

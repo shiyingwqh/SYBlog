@@ -13,14 +13,14 @@ import java.util.Map;
  * @author Wuqihang
  */
 public class FileTemplateResolver extends AbstractConfigurableTemplateResolver {
-    Logger logger = LoggerFactory.getLogger(FileTemplateResolver.class);
+//    Logger logger = LoggerFactory.getLogger(FileTemplateResolver.class);
     @Override
     protected ITemplateResource computeTemplateResource(IEngineConfiguration configuration, String ownerTemplate, String template, String resourceName, String characterEncoding, Map<String, Object> templateResolutionAttributes) {
         FileTemplateResource resource = new FileTemplateResource(resourceName, characterEncoding);
         if (resource.exists()){
             return resource;
         }
-        logger.info(resourceName + " is Not Found!");
+//        logger.info(resourceName + " is Not Found!");
         return null;
     }
 }

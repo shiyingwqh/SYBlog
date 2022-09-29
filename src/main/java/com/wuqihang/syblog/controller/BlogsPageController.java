@@ -4,6 +4,7 @@ import com.wuqihang.syblog.pojo.Account;
 import com.wuqihang.syblog.pojo.Blog;
 import com.wuqihang.syblog.services.AccountService;
 import com.wuqihang.syblog.services.BlogService;
+import com.wuqihang.syblog.services.CommentService;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,25 +21,15 @@ import java.util.List;
  * @author Wuqihang
  */
 @Controller
-public class MainController {
-    private final AccountService accountService;
+public class BlogsPageController {
     private final BlogService blogService;
 
-    public MainController(AccountService accountService, BlogService blogService) {
-        this.accountService = accountService;
-        this.blogService = blogService;
-    }
+    private final CommentService commentService;
 
-    @GetMapping({"/", "/index"})
-    String getId(HttpServletResponse response, Model model) throws IOException {
-        List<Account> allAccount = accountService.getAllAccount();
-        Account account = allAccount.get(0);
-        if (account == null) {
-            response.sendError(HttpServletResponse.SC_NOT_FOUND);
-            return null;
-        }
-        model.addAttribute("account", account);
-        return "index";
+
+    public BlogsPageController(BlogService blogService, AccountService accountService, CommentService commentService) {
+        this.blogService = blogService;
+        this.commentService = commentService;
     }
 
     @GetMapping("/blogs")
@@ -53,20 +44,19 @@ public class MainController {
         List<Blog> blogList = blogService.getPageAllBlogs(page);
         model.addAttribute("page", page);
         model.addAttribute("maxPage", blogService.getMaxPage());
-        model.addAttribute(blogList);
+        model.addAttribute("blogs", blogList);
         return "blogs";
     }
 
-    @RequestMapping("/blogs/{id}")
+    @RequestMapping("/blog/{id}")
     public String blog(@PathVariable("id") String id, HttpServletResponse response, Model model) throws IOException {
         Blog blog = blogService.getBlog(id);
-        Account account = accountService.getAllAccount().get(0);
-        model.addAttribute("account", account);
         if (blog == null) {
             response.sendError(HttpServletResponse.SC_NOT_FOUND);
             return null;
         }
         model.addAttribute(blog);
+        model.addAttribute("comments", commentService.getComments(blog));
         return "blog";
     }
 }

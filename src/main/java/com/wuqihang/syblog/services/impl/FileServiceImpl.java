@@ -12,7 +12,9 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Wuqihang
@@ -20,7 +22,8 @@ import java.util.List;
 @Component
 public class FileServiceImpl implements FileService {
     private final FileUtil fileUtil;
-    String imgRegex = "([^\\s]+(\\.(?i)(jpg|png|gif|bmp))$)";
+    // TODO: add cache
+    String imgRegex = "(\\S+(\\.(?i)(jpg|png|gif|bmp))$)";
 
 
     public FileServiceImpl(FileUtil fileUtil) {
@@ -45,7 +48,9 @@ public class FileServiceImpl implements FileService {
             return false;
         } finally {
             try {
-                inputStream.close();
+                if (inputStream != null) {
+                    inputStream.close();
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -84,7 +89,13 @@ public class FileServiceImpl implements FileService {
         return file;
     }
 
-    public void getAllName(File file, String path, List<String> names) {
+    @Override
+    public Map<String, String> getAllFilePathMap() {
+        Map<String, String> map = new HashMap<>();
+        return null;
+    }
+
+    private void getAllName(File file, String path, List<String> names) {
         if (file.isDirectory()) {
             path = path + "/" + file.getName();
             File[] files = file.listFiles();
@@ -93,8 +104,7 @@ public class FileServiceImpl implements FileService {
                 getAllName(file1, path, names);
             }
         } else {
-            names.add(path + "/" + URLEncoder.encode(file.getName()).replace("+","%20"));
-
+            names.add(path + "/" + URLEncoder.encode(file.getName()).replace("+", "%20"));
         }
     }
 

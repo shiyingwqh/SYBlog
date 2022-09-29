@@ -34,6 +34,9 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public List<Comment> getComments(Blog blog) {
+        if (blog == null){
+            return null;
+        }
         return commentMapper.queryByBlogId(blog.getId());
     }
 

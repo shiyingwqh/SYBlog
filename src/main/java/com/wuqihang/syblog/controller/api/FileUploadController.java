@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author Wuqihang
@@ -35,5 +37,17 @@ public class FileUploadController {
     public ResponsePKG deleteFile(@RequestParam String path) {
         fileService.delete(path);
         return ResponsePKG.ok();
+    }
+
+    @PostMapping("get-file-list")
+    public ResponsePKG getFileList() {
+        List<String> allFilePath = fileService.getAllFilePath();
+        return ResponsePKG.returnData(allFilePath);
+    }
+
+    @PostMapping("get-file-list-map")
+    public ResponsePKG getFileListMap() {
+        Map<String, String> map = fileService.getAllFilePathMap();
+        return ResponsePKG.returnData(map);
     }
 }

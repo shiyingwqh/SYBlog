@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="commons/adminCommon::head">
+<head th:replace="admin/adminCommon::head">
 </head>
 <body>
 <div class="container-fluid position-relative bg-white d-flex p-0">
@@ -12,11 +12,11 @@
         </div>
     </div>
 
-    <div th:replace="commons/adminCommon::sidebar(cur='edit')"></div>
+    <div th:replace="admin/adminCommon::sidebar(cur='edit')"></div>
 
     <div class="content">
 
-        <div th:replace="commons/adminCommon::top"></div>
+        <div th:replace="admin/adminCommon::top"></div>
 
         <div class="col">
             <div class="bg-light rounded h-100 p-4">
@@ -37,7 +37,7 @@
     <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
 </div>
 
-<div th:replace="commons/adminCommon::js"></div>
+<div th:replace="admin/adminCommon::js"></div>
 <script>
     function submit(){
         var data = {}
