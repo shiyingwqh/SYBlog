@@ -20,10 +20,12 @@ import org.thymeleaf.templateresolver.ITemplateResolver;
 @ConfigurationProperties(prefix = "syblog.theme")
 public class ThemeConfiguration {
     public String dir;
+    private ITemplateResolver resolver;
 
     @Bean
     public ITemplateResolver fileTemplateResolver(ThymeleafProperties properties) {
         FileTemplateResolver resolver = new FileTemplateResolver();
+        this.resolver = resolver;
         resolver.setOrder(Ordered.HIGHEST_PRECEDENCE);
         resolver.setCacheable(properties.isCache());
         resolver.setSuffix(properties.getSuffix());
@@ -36,6 +38,10 @@ public class ThemeConfiguration {
         } else {
             resolver.setPrefix(dir);
         }
+        return resolver;
+    }
+
+    public ITemplateResolver getResolver() {
         return resolver;
     }
 }

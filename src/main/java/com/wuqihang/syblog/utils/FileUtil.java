@@ -2,7 +2,8 @@ package com.wuqihang.syblog.utils;
 
 import com.wuqihang.syblog.config.SYConfiguration;
 import lombok.Getter;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.stereotype.Component;
@@ -11,7 +12,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URLDecoder;
 
 /**
  * @author Wuqihang
@@ -25,11 +25,16 @@ public class FileUtil {
     private final String appName;
     private final File root;
 
+    private final Logger logger = LoggerFactory.getLogger(FileUtil.class);
+
     public FileUtil(@Value("#{SYConfiguration.appName}") String appName) {
         this.appName = appName;
         this.root = new File(System.getProperty("user.home") + File.separator + appName + File.separator + "static" + File.separator + "static");
-        root.mkdirs();
-        new File(root, "img").mkdirs();
+        boolean mkdirs = root.mkdirs();
+        boolean img = new File(root, "img").mkdirs();
+        if (mkdirs && img) {
+            logger.info("Dir Created");
+        }
     }
 
     public boolean uploadFile(String fileName, InputStream in) {
@@ -43,11 +48,7 @@ public class FileUtil {
         int last = filename.lastIndexOf('.');
         String name = filename.substring(0, last);
         String ex;
-        if (last == -1) {
-            ex = "";
-        } else {
-            ex = filename.substring(last);
-        }
+        ex = filename.substring(last);
         int i = 0;
         while (newFile.exists()) {
             i++;
@@ -63,6 +64,7 @@ public class FileUtil {
                     fos.write(bytes, 0, len);
                 }
                 fos.close();
+                logger.info("File '" + filename + "' Upload");
                 return true;
             }
             return false;
@@ -78,6 +80,6 @@ public class FileUtil {
     }
 
     public void delete(File file) {
-        file.delete();
+        file.deleteOnExit();
     }
 }
