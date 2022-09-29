@@ -31,5 +31,6 @@ build/
 ### VS Code ###
 .vscode/
 /src/test/
-/src/main/resources/templates/
-!/src/main/resources/templates/admin/
+/src/main/resources/templates/*.html
+/src/main/resources/templates/commons/
+/src/main/resources/templates/error/
