@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head th:replace="commons/adminCommon::head">
+</head>
+<body>
+<div class="container-fluid position-relative bg-white d-flex p-0">
+
+    <div id="spinner"
+         class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+
+    <div th:replace="admin/adminCommon::sidebar(cur='file')"></div>
+
+    <div class="content">
+
+        <div th:replace="admin/adminCommon::top"></div>
+        <div id="uploadFile">
+            <form id="file-form" enctype="multipart/form-data" method="post">
+                <input class="form-control" type="file" name="file">
+                <button class="btn btn-primary form-control text-dark" type="button" onclick="up()">Upload</button>
+            </form>
+        </div>
+        <div class="container p-0 m-0">
+            <div id="files" class="col row row-cols-md-4 row-cols-sm-2">
+                <div class="bg-light rounded row-cols-1" th:each="path:${filePaths}">
+                    <div class="form-row mb-2">
+                        <label class="col-12 form-control-plaintext">Path</label>
+                        <input th:value="'/static' + ${path}" class="form-control" readonly>
+                    </div>
+                    <div class="form-control">
+                        <a th:href="'/static' + ${path}">
+                            <object class="col-12 w-auto" height="150px">
+                                <img th:if="${path.matches('([^\s]+(\.(?i)(jpg|png|gif|bmp))$)')}"
+                                     th:src="'/static' + ${path}" class="img-responsive center-block"
+                                     height="150px">
+                                <audio th:if="${path.matches('([^\s]+(\.(?i)(mp3|wav|wma|ogg|ape|acc))$)')}"
+                                       th:src="'/static' + ${path}"
+                                       controls class="w-100" style="height: 150px"></audio>
+                                <video th:if="${path.matches('([^\s]+(\.(?i)(swf|flv|mp4|rmvb|avi|mpeg|ra|ram|mov|wmv))$)')}"
+                                       th:src="'/static' + ${path}"
+                                       controls class="w-100" height="150px"></video>
+                            </object>
+                        </a>
+                    </div>
+                    <div>
+                        <button class="btn btn-primary form-control text-dark col-12" th:data="${path}"
+                                onclick="del(this.getAttribute('data'))">Delete
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+</div>
+
+<div th:replace="admin/adminCommon::js"></div>
+<script>
+    function up() {
+        var form = new FormData($("#file-form")[0]);
+        console.log(form)
+        $.ajax({
+            url: "/api/upload-file",
+            xhrFields: {
+                withCredentials: true
+            },
+            contentType: false,
+            processData: false,
+            cache: false,
+            type: "post",
+            data: form,
+            success: function (d) {
+                if (d.status === 200) {
+                    alert("success")
+                    location.reload()
+                } else {
+                    console.log(d)
+                }
+            }
+        })
+    }
+
+    function del(path) {
+        if (confirm("Confirm To Delete?")) {
+            $.ajax({
+                url: "/api/delete-file?path=" + path,
+                type: "POST",
+                xhrFields: {
+                    withCredentials: true
+                },
+                success: function (r) {
+                    alert("Success!")
+                    console.log(r)
+                    location.reload()
+                }
+            }).error(function () {
+                alert("Error!")
+            })
+        }
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="head">
+    <meta charset="utf-8">
+    <title th:text="${@SYConfiguration.title}"></title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+
+
+    <link rel="preconnect" href="https://fonts.googleapis.com/">
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+    <link th:href="@{/css/css2.css}" rel="stylesheet">
+
+    <link th:href="@{/css/all.min.css}" rel="stylesheet">
+    <link th:href="@{/css/bootstrap-icons.css}" rel="stylesheet">
+
+    <link th:href="@{/css/owl.carousel.min.css}" rel="stylesheet">
+    <link th:href="@{/css/tempusdominus-bootstrap-4.min.css}"
+          rel="stylesheet">
+
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+
+    <link th:href="@{/css/style.css}" rel="stylesheet">
+</head>
+<body>
+
+<div class="sidebar pe-4 pb-3" th:fragment="sidebar">
+    <nav class="navbar bg-light navbar-light">
+        <a href="/admin/" class="navbar-brand mx-4 mb-3">
+            <h3 class="text-primary"><i class="fa fa-hashtag me-2"></i>[[${@SYConfiguration.appName}]]</h3>
+        </a>
+        <div class="d-flex align-items-center ms-4 mb-4">
+            <div class="position-relative">
+                <!--                    <img class="rounded-circle" src="../../../../../../../../Desktop/moban6525/static/picture/user.jpg"-->
+                <!--                         alt="" style="width: 40px; height: 40px;">-->
+                <div class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"></div>
+            </div>
+            <div class="ms-3">
+                <h6 class="mb-0" th:text="${account.getName()}"/>
+                <span>Admin</span>
+            </div>
+        </div>
+        <div class="navbar-nav w-100">
+            <a href="/admin/index" th:class="${'dashbord' == cur ? 'nav-item nav-link active' : 'nav-item nav-link'}"><i
+                    class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
+            <a href="/admin/list" th:class="${'list' == cur ? 'nav-item nav-link active' : 'nav-item nav-link'}"><i
+                    class="fa fa-list me-2"></i>List</a>
+            <a href="/admin/edit" th:class="${'edit' == cur ? 'nav-item nav-link active' : 'nav-item nav-link'}"><i
+                    class="fa fa-keyboard me-2"></i>Edit</a>
+            <a href="/admin/file" th:class="${'file' == cur ? 'nav-item nav-link active' : 'nav-item nav-link'}"><i
+                    class="fa fa-image me-2"></i>File</a>
+        </div>
+    </nav>
+</div>
+<div th:fragment="top">
+    <nav class="navbar navbar-expand bg-light navbar-light sticky-top px-4 py-0">
+        <a th:href="@{/admin/index}" class="navbar-brand d-flex d-lg-none me-4">
+            <h2 class="text-primary mb-0"><i class="fa fa-hashtag"></i></h2>
+        </a>
+        <a href="#" class="sidebar-toggler flex-shrink-0">
+            <i class="fa fa-bars"></i>
+        </a>
+        <div class="navbar-nav align-items-center ms-auto">
+            <div class="nav-item dropdown">
+                <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                    <img class="rounded-circle me-lg-2"
+                         th:src="@{/img/profile.jpg}" alt=""
+                         style="width: 40px; height: 40px;">
+                    <span class="d-none d-lg-inline-flex" th:text="${account.getName()}"></span>
+                </a>
+                <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
+                    <a href="#" class="dropdown-item">My Profile</a>
+                    <a href="/admin/setting" class="dropdown-item">Settings</a>
+                    <a href="/admin/logout" class="dropdown-item">Log Out</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+</div>
+
+
+<div th:fragment="js">
+    <script th:src="@{/js/jquery-3.4.1.min.js}"
+            type="76eed92904259107f421ab8c-text/javascript"></script>
+    <script th:src="@{/js/bootstrap.bundle.min.js}"
+            type="76eed92904259107f421ab8c-text/javascript"></script>
+    <script th:src="@{/js/chart.min.js}"
+            type="76eed92904259107f421ab8c-text/javascript"></script>
+    <script th:src="@{/js/easing.min.js}"
+            type="76eed92904259107f421ab8c-text/javascript"></script>
+    <script th:src="@{/js/waypoints.min.js}"
+            type="76eed92904259107f421ab8c-text/javascript"></script>
+    <script th:src="@{/js/owl.carousel.min.js}"
+            type="76eed92904259107f421ab8c-text/javascript"></script>
+    <script th:src="@{/js/moment.min.js}"
+            type="76eed92904259107f421ab8c-text/javascript"></script>
+    <script th:src="@{/js/moment-timezone.min.js}"
+            type="76eed92904259107f421ab8c-text/javascript"></script>
+    <script th:src="@{/js/tempusdominus-bootstrap-4.min.js}"
+            type="76eed92904259107f421ab8c-text/javascript"></script>
+
+    <script th:src="@{/js/main.js}"
+            type="76eed92904259107f421ab8c-text/javascript"></script>
+    <script th:src="@{/js/rocket-loader.min.js}"
+            data-cf-settings="76eed92904259107f421ab8c-|49" defer=""></script>
+</div>
+</body>
+</html>
