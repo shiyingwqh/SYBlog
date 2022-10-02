@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.File;
 import java.util.List;
 import java.util.Map;
 
@@ -47,7 +48,7 @@ public class FileUploadController {
 
     @PostMapping("get-file-list-map")
     public ResponsePKG getFileListMap() {
-        Map<String, String> map = fileService.getAllFilePathMap();
+        Map<String, File> map = fileService.getAllFilePathMap();
         return ResponsePKG.returnData(map);
     }
 }

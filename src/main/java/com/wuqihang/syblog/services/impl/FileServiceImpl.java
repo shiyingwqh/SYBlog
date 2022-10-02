@@ -10,10 +10,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author Wuqihang
@@ -21,12 +18,15 @@ import java.util.Map;
 @Component
 public class FileServiceImpl implements FileService {
     private final FileUtil fileUtil;
+    private final Map<String, File> cache;
+    private volatile boolean cached = false;
     // TODO: add cache
     String imgRegex = "(\\S+(\\.(?i)(jpg|png|gif|bmp))$)";
 
 
     public FileServiceImpl(FileUtil fileUtil) {
         this.fileUtil = fileUtil;
+        this.cache = new Hashtable<>();
     }
 
     @Override
@@ -38,6 +38,7 @@ public class FileServiceImpl implements FileService {
         }
         try {
             inputStream = file.getInputStream();
+            cached = false;
             if (originalFilename.matches(imgRegex)) {
                 return fileUtil.uploadImg(originalFilename, inputStream);
             }
@@ -61,49 +62,49 @@ public class FileServiceImpl implements FileService {
         path = path.replace("/", File.separator);
         File file = new File(fileUtil.getRoot(), path);
         fileUtil.delete(file);
+        cached = false;
     }
 
     @Override
     public List<String> getAllFilePath() {
-        ArrayList<String> names = new ArrayList<>();
-        File[] files = fileUtil.getRoot().listFiles();
-        if (files == null) return names;
-        for (File file : files) {
-            getAllName(file, "", names);
+        if (!cached) {
+            refreshCache();
         }
-
-        return names;
+        return new ArrayList<>(cache.keySet());
     }
 
     @Override
     public File getFileWithPath(String path) {
-        if (path == null || path.equals("")) return null;
-        String[] split = path.split("/");
-        File file = fileUtil.getRoot();
-        for (String s : split) {
-            s = URLDecoder.decode(s);
-            file = new File(file, s);
+        if (!cached){
+            refreshCache();
         }
-        if (file.exists()) return null;
-        return file;
+        return cache.getOrDefault(path, null);
     }
 
     @Override
-    public Map<String, String> getAllFilePathMap() {
-        Map<String, String> map = new HashMap<>();
-        return null;
+    public Map<String, File> getAllFilePathMap() {
+        if (!cached) {
+            refreshCache();
+        }
+        return cache;
     }
 
-    private void getAllName(File file, String path, List<String> names) {
-        if (file.isDirectory()) {
-            path = path + "/" + file.getName();
-            File[] files = file.listFiles();
-            if (files == null) return;
-            for (File file1 : files) {
-                getAllName(file1, path, names);
+    private synchronized void refreshCache() {
+        cache.clear();
+        for (File file : Objects.requireNonNull(fileUtil.getRoot().listFiles())) {
+            addFileCache(file, "");
+        }
+        cached = true;
+    }
+
+    private void addFileCache(File root, String path) {
+        if (root.isDirectory()) {
+            path = path + "/" + root.getName();
+            for (File file : Objects.requireNonNull(root.listFiles())) {
+                addFileCache(file, path);
             }
         } else {
-            names.add(path + "/" + URLEncoder.encode(file.getName()).replace("+", "%20"));
+            cache.put(path + "/" + root.getName(), root);
         }
     }
 

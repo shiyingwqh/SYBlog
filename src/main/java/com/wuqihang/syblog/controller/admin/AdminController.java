@@ -73,7 +73,6 @@ public class AdminController {
 
     @RequestMapping("file")
     public String Image(Model model) {
-
         List<String> filePaths = fileService.getAllFilePath();
         model.addAttribute(accountService.getAllAccount().get(0));
         model.addAttribute("filePaths", filePaths);

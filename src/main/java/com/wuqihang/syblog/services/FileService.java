@@ -14,5 +14,5 @@ public interface FileService {
 
     File getFileWithPath(String path);
 
-    Map<String, String> getAllFilePathMap();
+    Map<String, File> getAllFilePathMap();
 }

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
-<head th:replace="commons/adminCommon::head">
+<head th:replace="admin/adminCommon::head">
 </head>
 <body>
 <div class="container-fluid position-relative bg-white d-flex p-0">
@@ -28,20 +28,23 @@
                 <div class="bg-light rounded row-cols-1" th:each="path:${filePaths}">
                     <div class="form-row mb-2">
                         <label class="col-12 form-control-plaintext">Path</label>
-                        <input th:value="'/static' + ${path}" class="form-control" readonly>
+                        <input th:value="'/static' + ${#uris.escapePath(path)}" class="form-control" readonly>
                     </div>
                     <div class="form-control">
-                        <a th:href="'/static' + ${path}">
-                            <object class="col-12 w-auto" height="150px">
-                                <img th:if="${path.matches('([^\s]+(\.(?i)(jpg|png|gif|bmp))$)')}"
-                                     th:src="'/static' + ${path}" class="img-responsive center-block"
-                                     height="150px">
-                                <audio th:if="${path.matches('([^\s]+(\.(?i)(mp3|wav|wma|ogg|ape|acc))$)')}"
-                                       th:src="'/static' + ${path}"
-                                       controls class="w-100" style="height: 150px"></audio>
-                                <video th:if="${path.matches('([^\s]+(\.(?i)(swf|flv|mp4|rmvb|avi|mpeg|ra|ram|mov|wmv))$)')}"
-                                       th:src="'/static' + ${path}"
-                                       controls class="w-100" height="150px"></video>
+                        <a th:href="'/static' + ${#uris.escapePath(path)}">
+                            <object class="col-12 w-auto" height="150px"
+                                    th:with="img=${path.matches('([^\s]+(\.(?i)(jpg|png|gif|bmp))$)')},audio=${path.matches('([^\s]+(\.(?i)(mp3|wav|wma|ogg|ape|acc))$)')},video=${path.matches('([^\s]+(\.(?i)(swf|flv|mp4|rmvb|avi|mpeg|ra|ram|mov|wmv))$)')}">
+                                <img th:if="${img}"
+                                     th:src="'/static' + ${#uris.escapePath(path)}"
+                                     class=" img-thumbnail mx-auto d-block"
+                                     style="height: 150px">
+                                <audio th:if="${audio}"
+                                       th:src="'/static' + ${#uris.escapePath(path)}"
+                                       controls style="height: 150px" class="img-thumbnail mx-auto d-block"></audio>
+                                <video th:if="${video}"
+                                       th:src="'/static' + ${#uris.escapePath(path)}"
+                                       controls style="height: 150px" class=" img-thumbnail mx-auto d-block"></video>
+                                <div style="height: 150px" th:unless="${img||audio||video}"></div>
                             </object>
                         </a>
                     </div>
