@@ -20,7 +20,6 @@ public class FileServiceImpl implements FileService {
     private final FileUtil fileUtil;
     private final Map<String, File> cache;
     private volatile boolean cached = false;
-    // TODO: add cache
     String imgRegex = "(\\S+(\\.(?i)(jpg|png|gif|bmp))$)";
 
 
@@ -40,9 +39,11 @@ public class FileServiceImpl implements FileService {
             inputStream = file.getInputStream();
             cached = false;
             if (originalFilename.matches(imgRegex)) {
-                return fileUtil.uploadImg(originalFilename, inputStream);
+                File upd = fileUtil.uploadImg(originalFilename, inputStream);
+                return upd != null && upd.exists();
             }
-            return fileUtil.uploadFile(originalFilename, inputStream);
+            File upd = fileUtil.uploadFile(originalFilename, inputStream);
+            return upd != null && upd.exists();
         } catch (IOException e) {
             e.printStackTrace();
             return false;
@@ -75,7 +76,7 @@ public class FileServiceImpl implements FileService {
 
     @Override
     public File getFileWithPath(String path) {
-        if (!cached){
+        if (!cached) {
             refreshCache();
         }
         return cache.getOrDefault(path, null);
@@ -90,6 +91,9 @@ public class FileServiceImpl implements FileService {
     }
 
     private synchronized void refreshCache() {
+        if (cached) {
+            return;
+        }
         cache.clear();
         for (File file : Objects.requireNonNull(fileUtil.getRoot().listFiles())) {
             addFileCache(file, "");

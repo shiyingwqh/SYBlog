@@ -1,4 +1,4 @@
-package com.wuqihang.syblog.config;
+package com.wuqihang.syblog.config.mvc;
 
 import com.wuqihang.syblog.services.AccountService;
 import org.springframework.stereotype.Component;

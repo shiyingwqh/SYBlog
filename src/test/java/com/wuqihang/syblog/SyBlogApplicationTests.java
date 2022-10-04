@@ -1,20 +1,26 @@
 package com.wuqihang.syblog;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wuqihang.syblog.config.SYConfiguration;
 import com.wuqihang.syblog.mapper.AccountMapper;
 import com.wuqihang.syblog.mapper.CommentMapper;
 import com.wuqihang.syblog.mapper.UserMapper;
 import com.wuqihang.syblog.pojo.Comment;
+import com.wuqihang.syblog.pojo.Theme;
 import com.wuqihang.syblog.security.TokenManager;
 import com.wuqihang.syblog.services.AccountService;
 import com.wuqihang.syblog.services.BlogService;
 import com.wuqihang.syblog.services.FileService;
+import com.wuqihang.syblog.services.ThemeService;
 import com.wuqihang.syblog.utils.FileUtil;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import java.io.File;
 
 @SpringBootTest
 @EnableConfigurationProperties(SYConfiguration.class)
@@ -39,7 +45,8 @@ class SyBlogApplicationTests {
     FileUtil fileUtil;
     @Autowired
     CommentMapper commentMapper;
-
+    @Autowired
+    ThemeService themeService;
     @Test
     void contextLoads() {
 //        Account account = new Account();
@@ -72,10 +79,23 @@ class SyBlogApplicationTests {
 //        List<Account> allAccount = accountMapper.getAllAccount();
 //        System.out.println(allAccount);
 //        System.out.println(new File("C:\\Users\\shiying\\SYBlog\\theme\\commons\\foot.html").exists());
-        Comment comment = new Comment();
-        comment.setBlogId("123");
-        comment.setText("ni hao");
-        commentMapper.insert(comment);
+//        Comment comment = new Comment();
+//        comment.setBlogId("123");
+//        comment.setText("ni hao");
+//        commentMapper.insert(comment);
+//        File file = new File("src");
+////        fileUtil.zipFile("zip.zip", file.listFiles());
+//        fileUtil.unzip(new File("1","zip.zip"));
+//        Theme theme = new Theme();
+//        theme.setDir(new File("1"));
+//        theme.setName("name");
+//        try {
+//            String s = new ObjectMapper().writeValueAsString(theme);
+//            System.out.println(s);
+//        } catch (JsonProcessingException e) {
+//            throw new RuntimeException(e);
+//        }
+        themeService.unzipTheme(null);
     }
 
 }

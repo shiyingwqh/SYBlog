@@ -1,4 +1,4 @@
-package com.wuqihang.syblog.config;
+package com.wuqihang.syblog.config.mvc;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;

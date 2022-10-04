@@ -24,10 +24,13 @@ public class InitConfiguration implements InitializingBean {
         File file = new File("~", appName);
         File staticF = new File(file, "static");
         if (!file.exists() || !staticF.exists()) {
-            file.mkdir();
-            staticF.mkdir();
-            logger.info("Create New File Folder!");
+            boolean m1 = file.mkdir();
+            boolean m2 = staticF.mkdir();
+            if (m1 && m2) {
+                logger.info("Create New File Folder!");
+            }
         }
     }
+
 
 }

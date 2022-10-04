@@ -1,4 +1,4 @@
-package com.wuqihang.syblog.config;
+package com.wuqihang.syblog.config.mvc;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wuqihang.syblog.pojo.ResponsePKG;

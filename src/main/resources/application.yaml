@@ -8,11 +8,12 @@ syblog:
       - 4
     num-one-page: 8
     app-name: SYBlog
+    theme-dir: file:${user.home}/SYBlog/theme
 
 spring:
   datasource:
     driver-class-name: org.h2.Driver
-    url: jdbc:h2:file:~/${syblog.config.app-name}/db;AUTO_SERVER=TRUE;OLD_INFORMATION_SCHEMA=TRUE
+    url: jdbc:h2:file:~/SYBlog/db;AUTO_SERVER=TRUE;OLD_INFORMATION_SCHEMA=TRUE
     username: root
     password: 123456
   jpa:
@@ -31,10 +32,11 @@ spring:
 
   web:
     resources:
-      static-locations: file:${user.home}/${syblog.config.app-name}/static/,classpath:static/
+      static-locations: file:${user.home}/SYBlog/static/,classpath:static/
   servlet:
     multipart:
       max-request-size: 100MB
       max-file-size: 10MB
 server:
-  port:
+  port: 8080
+  http-port: 8081
