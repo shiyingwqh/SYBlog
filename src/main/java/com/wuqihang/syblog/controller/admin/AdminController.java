@@ -5,14 +5,21 @@ import com.wuqihang.syblog.pojo.Blog;
 import com.wuqihang.syblog.services.AccountService;
 import com.wuqihang.syblog.services.BlogService;
 import com.wuqihang.syblog.services.FileService;
+import com.wuqihang.syblog.utils.FileUtil;
+import lombok.Data;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
 /**
@@ -42,7 +49,7 @@ public class AdminController {
 
     @RequestMapping("list")
     public String list(@RequestParam @Nullable Integer page, Model model) {
-        if (page == null){
+        if (page == null) {
             page = 1;
         }
         List<Blog> pageAllBlogs = blogService.getPageAllBlogs(page);
@@ -84,5 +91,31 @@ public class AdminController {
         Account account = accountService.getAllAccount().get(0);
         model.addAttribute(account);
         return "admin/setting";
+    }
+    @Data
+    class Res{
+        private int success = 0;
+        private String message = "Error";
+        private String url = null;
+    }
+    @PostMapping("upload-img")
+    @ResponseBody
+    public Res uploadImg(@RequestParam("editormd-image-file") MultipartFile file, FileUtil fileUtil) {
+        Res res = new Res();
+        try {
+            if (!file.isEmpty()) {
+                InputStream in = file.getInputStream();
+                File uploadImg = fileUtil.uploadImg(file.getOriginalFilename(), in);
+                in.close();
+                if (uploadImg != null && uploadImg.exists()){
+                    res.success = 1;
+                    res.message = "OK";
+                    res.url = "/static/img/" + file.getOriginalFilename();
+                }
+            }
+        } catch (IOException ignored) {
+
+        }
+        return res;
     }
 }

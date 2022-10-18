@@ -22,18 +22,16 @@
             <div class="bg-light rounded h-100 p-4">
                 <div class="row">
                     <h6 class="col-md-3">Modify</h6>
-                    <button class="btn btn-primary w-25 m-2" type="button" onclick="del()">Delete</button>
+                    <button class="btn btn-primary w-25 m-2" type="button" th:data="${blog.getId()}" th:onclick="del(this.getAttribute('data'))">Delete</button>
                 </div>
                 <div class="form-floating mb-3">
                     <input id="title" class="form-control" th:value="${blog.getTitle()}">
                     <label for="title">Title</label>
                 </div>
-                <div class="form-floating">
-                    <textarea class="form-control" placeholder="Text" id="text" th:text="${blog.getText()}"
-                              style="height: 300px;"></textarea>
-                    <label for="text">Text</label>
+                <div class="form-control" id="editor">
+                    <textarea style="display:none;" th:text="${blog.getText()}"></textarea>
                 </div>
-                <button class="btn btn-primary w-100 m-2" type="button" onclick="submit()">Submit</button>
+                <button class="btn btn-primary w-100 m-2" type="button" th:data="${blog.getId()}" th:onclick="modify(this.getAttribute('data'))">Submit</button>
             </div>
         </div>
     </div>
@@ -41,49 +39,11 @@
 </div>
 
 <div th:replace="admin/adminCommon::js"></div>
+<script th:src="@{/admin/editormd/editormd.min.js}"></script>
+<script th:src="@{/admin/js/syeditor.js}"></script>
+<script th:src="@{/admin/js/admin.blog.js}"></script>
 <script>
-    function submit(){
-        var data = {}
-        data.id = [[${blog.getId()}]]
-        data.title = document.getElementById("title").value
-        data.text = document.getElementById("text").value
-        if (data.title === "" || data.text === ""){}
-        console.log(data)
-        $.ajax({
-            url:"/api/modify-blog",
-            xhrFields: {
-                withCredentials: true
-            },
-            contentType:'application/json;charset=UTF-8',
-            dataType:'JSON',
-            data:JSON.stringify(data),
-            type:"POST",
-            success:function (r){
-                if (r.status === 200){
-                    alert("Success!")
-                }else {
-                    alert(r)
-                }
-            }
-        })
-    }
-    function del(){
-        $.ajax({
-            url:"/api/delete-blog?id=" + [[${blog.getId()}]],
-            xhrFields: {
-                withCredentials: true
-            },
-            data:null,
-            type:"POST",
-            success:function (r){
-                if (r.status === 200){
-                    window.location.href = "/admin"
-                }else {
-                    console.log(r)
-                }
-            }
-        })
-    }
+
 </script>
 </body>
 </html>

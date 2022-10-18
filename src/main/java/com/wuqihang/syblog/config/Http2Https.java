@@ -1,13 +1,12 @@
 package com.wuqihang.syblog.config;
 
+import com.sun.net.httpserver.HttpsServer;
 import org.apache.catalina.Context;
 import org.apache.catalina.connector.Connector;
 import org.apache.tomcat.util.descriptor.web.SecurityCollection;
 import org.apache.tomcat.util.descriptor.web.SecurityConstraint;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.autoconfigure.web.ServerProperties;
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.boot.autoconfigure.condition.*;
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,6 +15,7 @@ import org.springframework.context.annotation.Configuration;
  * @author Wuqihang
  */
 @Configuration
+@ConditionalOnProperty(prefix = "server", name = "http-port")
 public class Http2Https {
     @Value("${server.port}")
     int httpsPort;
@@ -31,6 +31,7 @@ public class Http2Https {
         connector.setRedirectPort(httpsPort);
         return connector;
     }
+
 
     @Bean
     public TomcatServletWebServerFactory tomcatServletWebServerFactory(Connector connector) {

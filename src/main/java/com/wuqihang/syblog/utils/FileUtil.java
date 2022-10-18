@@ -26,16 +26,14 @@ import java.util.zip.ZipOutputStream;
 @Getter
 public class FileUtil {
 
-    private final String appName;
     private final File root;
 
     private final Logger logger = LoggerFactory.getLogger(FileUtil.class);
 
     public static final File temp = new File(System.getProperty("java.io.tmpdir"));
 
-    public FileUtil(@Value("#{SYConfiguration.appName}") String appName) {
-        this.appName = appName;
-        this.root = new File(System.getProperty("user.home") + File.separator + appName + File.separator + "static" + File.separator + "static");
+    public FileUtil() {
+        this.root = new File(System.getProperty("user.home") + File.separator + "SYBlog" + File.separator + "static" + File.separator + "static");
         boolean mkdirs = root.mkdirs();
         boolean img = new File(root, "img").mkdirs();
         if (mkdirs && img) {
@@ -70,7 +68,7 @@ public class FileUtil {
         int i = 0;
         while (newFile.exists()) {
             i++;
-            newFile = new File(file.getParent(), name + '(' + i + ')' + ex);
+            newFile = new File(file.getParent(), name + '_' + i + ex);
         }
         try {
             boolean created = newFile.createNewFile();

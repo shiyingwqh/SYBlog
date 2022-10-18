@@ -19,6 +19,7 @@ public class AdminMvcConfigurer implements WebMvcConfigurer {
                 .excludePathPatterns("/admin/sign")
                 .excludePathPatterns("/admin/login")
                 .excludePathPatterns("/admin/signup")
-                .excludePathPatterns("/admin/create-account");
+                .excludePathPatterns("/admin/create-account")
+                .excludePathPatterns("/admin/editormd/**");
     }
 }

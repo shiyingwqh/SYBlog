@@ -25,10 +25,11 @@
                     <input id="title" class="form-control">
                     <label for="title">Title</label>
                 </div>
-                <div class="form-floating">
-                    <textarea class="form-control" placeholder="Text" id="text"
-                              style="height: 300px;"></textarea>
-                    <label for="text">Text</label>
+                <div class="form-control" id="editor">
+                    <textarea style="display:none;"></textarea>
+                </div>
+                <div>
+                    Powered By <a href="https://github.com/pandao/editor.md"><i class="fab fa-github"></i><b>Editor.md</b></a>
                 </div>
                 <button class="btn btn-primary w-100 mt-2" type="button" onclick="submit()">Submit</button>
             </div>
@@ -38,32 +39,8 @@
 </div>
 
 <div th:replace="admin/adminCommon::js"></div>
-<script>
-    function submit(){
-        var data = {}
-        data.title = document.getElementById("title").value
-        data.text = document.getElementById("text").value
-        if (data.title === "" || data.text === ""){}
-        console.log(data)
-        $.ajax({
-            url:"/api/upload-blog",
-            xhrFields: {
-                withCredentials: true
-            },
-            contentType:'application/json;charset=UTF-8',
-            dataType:'JSON',
-            data:JSON.stringify(data),
-            type:"POST",
-            success:function (r){
-                if (r.status === 200){
-                    alert("Success!")
-                    location.reload()
-                }else {
-                    console.log(r)
-                }
-            }
-        })
-    }
-</script>
+<script th:src="@{/editormd/editormd.js}"></script>
+<script th:src="@{/admin/js/syeditor.js}"></script>
+<script th:src="@{/admin/js/admin.blog.js}"></script>
 </body>
 </html>

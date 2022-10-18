@@ -22,7 +22,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 /**
  * @author Wuqihang
  */
-@Component
+//@Component
 public class ThemeServiceImpl implements ThemeService {
     private final ObjectMapper mapper = new ObjectMapper();
     private final FileUtil fileUtil;
